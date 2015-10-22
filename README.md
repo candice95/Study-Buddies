@@ -5,6 +5,7 @@ If you encounter some thing related to Github you are unfamiliar with,please goo
 
 ###Branches
 master: production
+ 
 feature branch: your development branch (E.g. login)
 
 ###Flow:
