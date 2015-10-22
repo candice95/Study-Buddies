@@ -1,4 +1,4 @@
-# GuideLines for CSE110 group members
+# [IMPORTANT]Guidelines for CSE110 group members
 
 If you encounter some thing related to Github you are not familiar with,please google Git101.
 
