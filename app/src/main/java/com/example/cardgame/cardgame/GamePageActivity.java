@@ -12,14 +12,14 @@ import com.parse.ParseUser;
 /**
  * Created by chenshiyu on 10/21/15.
  */
-public class UserPageActivity extends AppCompatActivity {
+public class GamePageActivity extends AppCompatActivity {
 
     private Button logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_appointment_page);
+        setContentView(R.layout.activity_game_page);
 
         setupUi();
     }
@@ -45,7 +45,7 @@ public class UserPageActivity extends AppCompatActivity {
     }
 
     private void navigateToMainPage() {
-        Intent intent = new Intent(UserPageActivity.this, OnBoardingActivity.class);
+        Intent intent = new Intent(GamePageActivity.this, MainPageActivity.class);
         finish();
         startActivity(intent);
     }
