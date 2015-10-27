@@ -1,4 +1,4 @@
-package com.example.cardgame.cardgame.ui;
+package com.example.cardgame.cardgame.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

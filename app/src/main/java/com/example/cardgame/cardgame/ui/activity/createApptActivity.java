@@ -1,4 +1,4 @@
-package com.example.cardgame.cardgame.ui;
+package com.example.cardgame.cardgame.ui.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
