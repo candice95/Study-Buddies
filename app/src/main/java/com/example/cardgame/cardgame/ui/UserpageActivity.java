@@ -31,8 +31,6 @@ public class UserpageActivity extends AppCompatActivity {
     private void setupUi() {
         currentUser = ParseUser.getCurrentUser();
 
-        setTitle(currentUser.getUsername());
-
         logout = (Button) findViewById(R.id.logout);
 
         logout.setOnClickListener(new View.OnClickListener() {

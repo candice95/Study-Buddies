@@ -23,8 +23,6 @@
         </activity>
         <activity
             android:name=".ui.UserpageActivity"
-            android:label="@string/user_page_title"
-            android:theme="@style/AppTheme.ActionBar"
             />
         <activity android:name=".ui.ViewAppointmentActivity" />
         <activity
