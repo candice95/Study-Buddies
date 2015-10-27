@@ -15,6 +15,8 @@ import com.parse.ParseUser;
  */
 public class UserpageActivity extends AppCompatActivity {
 
+    //Main user page
+
     private Button logout;
 
     @Override

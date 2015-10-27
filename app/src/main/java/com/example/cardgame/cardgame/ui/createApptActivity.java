@@ -11,6 +11,8 @@ import com.example.cardgame.cardgame.R;
 
 public class createApptActivity extends AppCompatActivity {
 
+    //Creating a new appointment
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
