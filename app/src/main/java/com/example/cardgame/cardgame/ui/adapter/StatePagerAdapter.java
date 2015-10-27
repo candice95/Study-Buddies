@@ -20,7 +20,7 @@ public class StatePagerAdapter extends FragmentStatePagerAdapter {
 
     public StatePagerAdapter(FragmentManager fm) {
         super(fm);
-        titles = Arrays.asList("First", "Second");
+        titles = Arrays.asList("Home", "Appointments");
     }
 
     @Override
