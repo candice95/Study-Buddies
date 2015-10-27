@@ -19,6 +19,8 @@ import com.parse.SignUpCallback;
  */
 public class OnBoardingActivity extends AppCompatActivity {
 
+    //Onboarding
+
     private EditText username;
     private EditText password;
     private Button login;

@@ -7,6 +7,8 @@ import com.example.cardgame.cardgame.R;
 
 public class ViewAppointmentActivity extends AppCompatActivity {
 
+    //view appointements
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
