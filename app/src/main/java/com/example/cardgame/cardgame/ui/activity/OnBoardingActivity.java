@@ -1,4 +1,4 @@
-package com.example.cardgame.cardgame.ui;
+package com.example.cardgame.cardgame.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
