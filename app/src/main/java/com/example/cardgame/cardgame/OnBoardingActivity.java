@@ -30,7 +30,7 @@ public class OnBoardingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_onboading);
+        setContentView(R.layout.activity_onboarding);
 
         setupUi();
     }
@@ -95,7 +95,7 @@ public class OnBoardingActivity extends AppCompatActivity {
     }
 
     private void navigateToGamePage() {
-        Intent intent = new Intent(OnBoardingActivity.this, UserPageActivity.class);
+        Intent intent = new Intent(OnBoardingActivity.this, UserpageActivity.class);
         finish();
         startActivity(intent);
     }
