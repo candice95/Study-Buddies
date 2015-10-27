@@ -1,7 +1,9 @@
-package com.example.cardgame.cardgame;
+package com.example.cardgame.cardgame.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.cardgame.cardgame.R;
 
 public class ViewAppointmentActivity extends AppCompatActivity {
 
