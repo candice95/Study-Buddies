@@ -16,6 +16,8 @@ import com.parse.ParseUser;
 public class UserpageActivity extends AppCompatActivity {
 
     private Button logout;
+    private ParseUser currentUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +29,16 @@ public class UserpageActivity extends AppCompatActivity {
 
 
     private void setupUi() {
+        currentUser = ParseUser.getCurrentUser();
+
+        setTitle(currentUser.getUsername());
+
         logout = (Button) findViewById(R.id.logout);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ParseUser.getCurrentUser() != null) {
+                if (currentUser != null) {
                     ParseUser.logOut();
                     if (ParseUser.getCurrentUser() != null) {
                         showToast("log out failed");
