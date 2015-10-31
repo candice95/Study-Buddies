@@ -7,5 +7,6 @@
 
     <!--user page-->
     <string name="user_page_title">Personal</string>
+    <string name="appointment">Appointment</string>
 
 </resources>
