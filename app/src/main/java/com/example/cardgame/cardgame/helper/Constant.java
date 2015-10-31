@@ -1,4 +1,4 @@
-package com.example.cardgame.cardgame;
+package com.example.cardgame.cardgame.helper;
 
 /**
  * Created by chenshiyu on 10/21/15.

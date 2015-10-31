@@ -1,4 +1,4 @@
-package com.example.cardgame.cardgame;
+package com.example.cardgame.cardgame.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cardgame.cardgame.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -17,6 +18,8 @@ import com.parse.SignUpCallback;
  * Created by chenshiyu on 10/21/15.
  */
 public class OnBoardingActivity extends AppCompatActivity {
+
+    //Onboarding
 
     private EditText username;
     private EditText password;
