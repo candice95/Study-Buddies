@@ -34,15 +34,31 @@ public class SecondFragment extends Fragment {
         rv.setLayoutManager(llm);
         Log.d("onCreateView", rv + "");
         // hard code data
-        for (int i = 0; i < 5; i++) {
-            Appointment appointment = new Appointment();
-            appointment.title = "cse 110";
-            appointment.detail = "midterm review";
-            appointment.creator = "ariel chen";
-            appointment.date = "11.3";
-            appointment.location = "Geisel Room 619";
-            appointments.add(appointment);
-        }
+
+        Appointment appointment = new Appointment();
+        appointment.title = "cse 110";
+        appointment.detail = "midterm review";
+        appointment.creator = "ariel chen";
+        appointment.date = "11.3";
+        appointment.location = "Geisel Room 619";
+        appointments.add(appointment);
+
+        Appointment appointment2 = new Appointment();
+        appointment2.title = "cse 132A";
+        appointment2.detail = "midterm review";
+        appointment2.creator = "ariel chen";
+        appointment2.date = "11.4";
+        appointment2.location = "Geisel Room 716";
+        appointments.add(appointment2);
+
+        Appointment appointment3 = new Appointment();
+        appointment3.title = "cse 140L";
+        appointment3.detail = "midterm review";
+        appointment3.creator = "ariel chen";
+        appointment3.date = "11.5";
+        appointment3.location = "BML Room 218";
+        appointments.add(appointment3);
+
         Log.d("onCreateView", appointments + "");
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(appointments);
         rv.setAdapter(recyclerViewAdapter);
