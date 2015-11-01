@@ -1,4 +1,4 @@
-package com.example.cardgame.cardgame;
+package com.example.cardgame.cardgame.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cardgame.cardgame.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -16,7 +17,9 @@ import com.parse.SignUpCallback;
 /**
  * Created by chenshiyu on 10/21/15.
  */
-public class MainPageActivity extends AppCompatActivity {
+public class OnBoardingActivity extends AppCompatActivity {
+
+    //Onboarding
 
     private EditText username;
     private EditText password;
@@ -30,7 +33,7 @@ public class MainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page);
+        setContentView(R.layout.activity_onboarding);
 
         setupUi();
     }
@@ -95,7 +98,7 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
     private void navigateToGamePage() {
-        Intent intent = new Intent(MainPageActivity.this, GamePageActivity.class);
+        Intent intent = new Intent(OnBoardingActivity.this, UserpageActivity.class);
         finish();
         startActivity(intent);
     }
