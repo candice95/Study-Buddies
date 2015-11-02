@@ -59,14 +59,6 @@ public class UserpageActivity extends AppCompatActivity {
                 }
             }
         });
-
-        (findViewById(R.id.create_event)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(UserpageActivity.this, createApptActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void navigateToMainPage() {

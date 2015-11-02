@@ -32,18 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="Log out"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
     />
-
-    <Button
-        android:id="@+id/create_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Create Appointment"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        />
 
 </RelativeLayout>
