@@ -6,9 +6,26 @@
     >
 
     <Spinner
-        android:id="@+id/spinner1"
+    android:id="@+id/spinner1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text = "class"
+    android:background="@android:drawable/btn_dropdown"
+    android:spinnerMode="dropdown" />
+
+    <Spinner
+        android:id="@+id/spinner2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text = "class"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown" />
+
+    <Spinner
+        android:id="@+id/spinner3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "class"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown" />
 
