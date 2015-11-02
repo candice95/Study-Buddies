@@ -3,6 +3,8 @@ package com.example.cardgame.cardgame.ui.component;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.cardgame.cardgame.R;
@@ -23,6 +25,13 @@ public class AppointmentCardLayout extends CardView {
         ((TextView) findViewById(R.id.detail)).setText(appointment.detail);
         ((TextView) findViewById(R.id.creator)).setText("Initiator: "+appointment.creator);
         ((TextView) findViewById(R.id.location)).setText("Location: "+appointment.location);
+
+        (findViewById(R.id.card_view)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("testing","click card");
+            }
+        });
     }
 
 }
