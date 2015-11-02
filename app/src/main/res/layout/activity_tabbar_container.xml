@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -30,7 +30,20 @@
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:text="Log out"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
     />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/create_appt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Create appointment"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

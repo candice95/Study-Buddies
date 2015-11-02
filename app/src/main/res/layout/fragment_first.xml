@@ -5,6 +5,10 @@
     android:layout_height="173px"
     android:layout_x="0px"
     android:layout_y="25px"
+    android:overScrollMode="always"
+    android:isScrollContainer="true"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarStyle="outsideInset"
     android:scrollbars="vertical"
     android:fillViewport="true">
 <LinearLayout
