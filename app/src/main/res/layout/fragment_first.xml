@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+< xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/textAreaScroller"
     android:layout_width="fill_parent"
     android:layout_height="173px"
@@ -7,11 +7,31 @@
     android:layout_y="25px"
     android:scrollbars="vertical"
     android:fillViewport="true">
+<<<<<<< HEAD
 <LinearLayout
+=======
+<
+>>>>>>> master
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/text1"
+    android:text="Welcome!User"
+    android:textStyle="bold"
+    android:textColor="#ff00ff"
+    android:background="#00ff00"
+    android:textColorHighlight="#000000"
+    android:textIsSelectable="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+    </View>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv1"
         android:layout_width="match_parent"
