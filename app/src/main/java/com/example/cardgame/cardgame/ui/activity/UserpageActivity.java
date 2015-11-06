@@ -29,7 +29,7 @@ public class UserpageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_page);
+        setContentView(R.layout.activity_tabbar_container);
 
         setupUi();
     }
@@ -57,6 +57,14 @@ public class UserpageActivity extends AppCompatActivity {
                         navigateToMainPage();
                     }
                 }
+            }
+        });
+
+        findViewById(R.id.create_appt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserpageActivity.this, createApptActivity.class);
+                startActivity(intent);
             }
         });
     }
