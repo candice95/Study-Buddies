@@ -1,6 +1,6 @@
-<com.example.cardgame.cardgame.ui.component.AppointmentCardLayout
+<com.example.cardgame.cardgame.ui.component.MyAppointmentCardLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card_view"
+    android:id="@+id/my_card_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
@@ -22,7 +22,7 @@
             android:layout_marginRight="20dp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:background="@color/orange"
+            android:background="@color/green"
             android:textSize="30sp"
             />
 
@@ -70,4 +70,4 @@
 
     </RelativeLayout>
 
-</com.example.cardgame.cardgame.ui.component.AppointmentCardLayout>
+</com.example.cardgame.cardgame.ui.component.MyAppointmentCardLayout>
