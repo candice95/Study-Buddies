@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bignerdranch.expandablerecyclerview.Adapter.ExpandableRecyclerAdapter;
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
 import com.example.cardgame.cardgame.ui.component.MyAppointmentCardLayout;
