@@ -1,7 +1,7 @@
 package com.example.cardgame.cardgame.ui.component;
 
-import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -11,11 +11,12 @@ import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
 
 /**
- * Created by chenshiyu on 10/30/15.
+ * Created by yufei ye on 15/11/5.
  */
-public class AppointmentCardLayout extends CardView {
 
-    public AppointmentCardLayout(Context context, AttributeSet attrs) {
+public class MyAppointmentCardLayout extends CardView {
+
+    public MyAppointmentCardLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -26,10 +27,10 @@ public class AppointmentCardLayout extends CardView {
         ((TextView) findViewById(R.id.creator)).setText("Initiator: "+appointment.creator);
         ((TextView) findViewById(R.id.location)).setText("Location: "+appointment.location);
 
-        (findViewById(R.id.card_view)).setOnClickListener(new View.OnClickListener() {
+        (findViewById(R.id.my_card_view)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("testing","click card");
+                Log.d("testing","click my card");
             }
         });
     }
