@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
 import com.example.cardgame.cardgame.ui.adapter.RecyclerViewAdapter;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,53 +36,34 @@ public class SecondFragment extends Fragment {
         rv = (RecyclerView) view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(llm);
-        Log.d("onCreateView", rv + "");
-        // hard code data
 
-        Appointment appointment = new Appointment();
-        appointment.title = "cse 110";
-        appointment.detail = "midterm review";
-        appointment.creator = "ariel chen";
-        appointment.month = "NOV";
-        appointment.day = "13";
-        appointment.location = "Geisel Room 619";
-        appointment.capacity = "10";
-        appointment.seats = "5";
-        appointment.phone = "85842427857";
-        appointment.email = "shc143@ucsd.edu";
-        appointments.add(appointment);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointment");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    for (ParseObject parseObject : objects) {
+                        Appointment appointment = new Appointment();
+                        appointment.title = parseObject.getString("title");
+                        appointment.detail = parseObject.getString("detail");
+                        appointment.creator = parseObject.getString("creator");
+                        appointment.location = parseObject.getString("location");
+                        appointment.capacity = parseObject.getString("capacity");
+                        appointment.phone = parseObject.getString("phone");
+                        appointment.email = parseObject.getString("email");
+                        appointment.month = parseObject.getString("month");
+                        appointment.day = parseObject.getString("day");
+                        appointment.hour = parseObject.getString("hour");
+                        appointment.minute = parseObject.getString("minute");
+                        appointments.add(appointment);
+                    }
+                    RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(appointments);
+                    rv.setAdapter(recyclerViewAdapter);
+                } else {
 
-        Appointment appointment2 = new Appointment();
-        appointment2.title = "cse 132A";
-        appointment2.detail = "midterm review";
-        appointment2.creator = "ariel chen";
-        appointment2.month = "NOV";
-        appointment2.day = "14";
-        appointment2.location = "Geisel Room 716";
-        appointment2.capacity = "4";
-        appointment2.seats = "1";
-        appointment2.phone = "8580007857";
-        appointment2.email = "shc143@ucsd.edu";
-        appointments.add(appointment2);
-
-        Appointment appointment3 = new Appointment();
-        appointment3.title = "cse 140L";
-        appointment3.detail = "midterm review";
-        appointment3.creator = "ariel chen";
-        appointment3.month = "NOV";
-        appointment3.day = "26";
-        appointment3.location = "BML Room 218";
-        appointment3.capacity = "6";
-        appointment3.seats = "3";
-        appointment3.phone = "8580007857";
-        appointment3.email = "shc143@ucsd.edu";
-
-        appointments.add(appointment3);
-
-        Log.d("onCreateView", appointments + "");
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(appointments);
-        rv.setAdapter(recyclerViewAdapter);
-
+                }
+            }
+        });
         return view;
     }
 
