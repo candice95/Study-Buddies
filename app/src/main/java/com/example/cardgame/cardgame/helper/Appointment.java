@@ -12,6 +12,7 @@ public class Appointment {
     public String month;
     public String day;
     public String location;
+    public String time;
 
     public String capacity;
     public String seats;
