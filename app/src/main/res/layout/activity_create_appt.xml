@@ -23,13 +23,61 @@
             app:met_primaryColor="@color/black"
             />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date: "
+                android:textSize="16sp"
+                android:textColor="@color/gray_bg"
+                />
+
+            <Spinner
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <Spinner
+                android:id="@+id/day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time: "
+                android:textSize="16sp"
+                android:textColor="@color/gray_bg"
+                />
+
+            <Spinner
+                android:id="@+id/hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <Spinner
+                android:id="@+id/minute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
             android:textSize="16sp"
-            android:hint="Type"
+            android:hint="Detail"
             app:met_textColorHint="@color/gray_bg"
             app:met_floatingLabel="normal"
             app:met_singleLineEllipsis="true"
@@ -42,7 +90,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:textSize="16sp"
-            android:hint="Initiator"
+            android:hint="Creator"
             app:met_textColorHint="@color/gray_bg"
             app:met_floatingLabel="normal"
             app:met_singleLineEllipsis="true"
@@ -110,6 +158,11 @@
             android:background="#0066cc"
             />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            />
+        
     </LinearLayout>
 
 </ScrollView>
