@@ -9,6 +9,11 @@ import java.util.List;
  */
 public class MyAptParent implements ParentListItem {
     public List<MyAptChild> mChildrenList;
+    public String title;
+    public String detail;
+    public String creator;
+    public String date;
+    public String location;
 
     public MyAptParent() {}
 
