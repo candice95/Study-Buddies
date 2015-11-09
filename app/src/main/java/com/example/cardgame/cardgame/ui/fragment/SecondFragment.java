@@ -41,6 +41,7 @@ public class SecondFragment extends Fragment {
         appointment.creator = "ariel chen";
         appointment.date = "11.3";
         appointment.location = "Geisel Room 619";
+        appointment.expandText = "This is the expand detail for cse 110 - hahaha";
         appointments.add(appointment);
 
         Appointment appointment2 = new Appointment();
@@ -49,6 +50,7 @@ public class SecondFragment extends Fragment {
         appointment2.creator = "ariel chen";
         appointment2.date = "11.4";
         appointment2.location = "Geisel Room 716";
+        appointment2.expandText = "This is the expand detail for cse 132a - hahaha";
         appointments.add(appointment2);
 
         Appointment appointment3 = new Appointment();
@@ -57,6 +59,7 @@ public class SecondFragment extends Fragment {
         appointment3.creator = "ariel chen";
         appointment3.date = "11.5";
         appointment3.location = "BML Room 218";
+        appointment3.expandText = "This is the expand detail for cse 140L - hahaha";
         appointments.add(appointment3);
 
         Log.d("onCreateView", appointments + "");
