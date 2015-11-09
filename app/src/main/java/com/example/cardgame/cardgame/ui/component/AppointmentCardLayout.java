@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,6 +21,16 @@ public class AppointmentCardLayout extends CardView {
     private View expandView;
     private int descriptionViewMinHeight;
     private int descriptionViewFullHeight;
+    boolean isCalled = false;
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(isCalled) return;
+        isCalled = true;
+        descriptionViewMinHeight = cardView.getHeight();
+        descriptionViewFullHeight = cardView.getHeight() * 2;
+    }
 
     public AppointmentCardLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -33,21 +44,25 @@ public class AppointmentCardLayout extends CardView {
     }
 
     public void setContent(Appointment appointment) {
-        ((TextView) findViewById(R.id.date)).setText(appointment.date);
+        ((TextView) findViewById(R.id.date_month)).setText(appointment.month);
+        ((TextView) findViewById(R.id.date_day)).setText(appointment.day);
         ((TextView) findViewById(R.id.title)).setText(appointment.title);
         ((TextView) findViewById(R.id.detail)).setText(appointment.detail);
         ((TextView) findViewById(R.id.creator)).setText("Initiator: "+appointment.creator);
         ((TextView) findViewById(R.id.location)).setText("Location: " + appointment.location);
 
         expandView = findViewById(R.id.card_view_expand_area);
-        ((TextView) findViewById(R.id.expand_text)).setText(appointment.expandText);
-    }
+        ((TextView) findViewById(R.id.expand_text_capacity)).setText("Capacity: "+appointment.capacity);
+        ((TextView) findViewById(R.id.expand_text_seats)).setText("Seats available: "+appointment.seats);
+        ((TextView) findViewById(R.id.expand_text_phone)).setText("Phone number: " + appointment.phone);
+        ((TextView) findViewById(R.id.expand_text_email)).setText("Email: "+appointment.email);
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        descriptionViewMinHeight = cardView.getHeight();
-        descriptionViewFullHeight = cardView.getHeight() * 2;
+        findViewById(R.id.button_join).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void toggleHeight() {
