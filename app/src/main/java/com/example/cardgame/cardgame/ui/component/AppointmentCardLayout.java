@@ -39,8 +39,8 @@ public class AppointmentCardLayout extends CardView {
         ((TextView) findViewById(R.id.date_month)).setText(appointment.month);
         ((TextView) findViewById(R.id.date_day)).setText(appointment.day);
         ((TextView) findViewById(R.id.title)).setText(appointment.title);
-        ((TextView) findViewById(R.id.detail)).setText(appointment.detail);
-        ((TextView) findViewById(R.id.creator)).setText("Initiator: "+appointment.creator);
+        ((TextView) findViewById(R.id.detail)).setText("Detail: " + appointment.detail);
+        ((TextView) findViewById(R.id.creator)).setText("Initiator: " + appointment.creator);
         ((TextView) findViewById(R.id.location)).setText("Location: " + appointment.location);
         ((TextView) findViewById(R.id.time)).setText("Time: " + appointment.hour + " : " + appointment.minute);
 
