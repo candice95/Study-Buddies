@@ -10,5 +10,6 @@ public class Appointment {
     public String creator;
     public String date;
     public String location;
+    public String expandText;
 
 }

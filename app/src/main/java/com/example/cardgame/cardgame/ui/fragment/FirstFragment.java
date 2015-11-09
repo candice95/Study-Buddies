@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
-import com.example.cardgame.cardgame.ui.adapter.RecyclerViewAdapter;
+import com.example.cardgame.cardgame.ui.adapter.MyRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +21,16 @@ import java.util.List;
  */
 public class FirstFragment extends Fragment {
 
-    private RecyclerView rv;
+    private RecyclerView rv1;
     private List<Appointment> appointments = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first, container, false);
-        rv = (RecyclerView) view.findViewById(R.id.rv);
+        rv1 = (RecyclerView) view.findViewById(R.id.rv1);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        rv.setLayoutManager(llm);
-        Log.d("onCreateView", rv + "");
+        rv1.setLayoutManager(llm);
+        Log.d("onCreateView", rv1 + "");
         // hard code data
 
         Appointment appointment = new Appointment();
@@ -84,8 +84,8 @@ public class FirstFragment extends Fragment {
 
 
         Log.d("onCreateView", appointments + "");
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(appointments);
-        rv.setAdapter(recyclerViewAdapter);
+        MyRecyclerViewAdapter recyclerViewAdapter = new MyRecyclerViewAdapter(appointments);
+        rv1.setAdapter(recyclerViewAdapter);
         return view;
     }
 
