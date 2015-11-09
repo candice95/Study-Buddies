@@ -51,6 +51,6 @@ public class AptExpandableAdapter extends ExpandableRecyclerAdapter<MyAptParentV
     @Override
     public void onBindChildViewHolder(MyAptChildViewHolder cHolder, int i, Object cList) {
         MyAptChild aptChild = (MyAptChild)cList;
-        cHolder.reminder.setText("reminder");
+        cHolder.reminder.setText("reminder: bring your textbook");
     }
 }

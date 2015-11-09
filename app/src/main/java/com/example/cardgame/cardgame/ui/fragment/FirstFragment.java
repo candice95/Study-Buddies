@@ -60,7 +60,6 @@ public class FirstFragment extends Fragment {
         appointment.creator = "ariel chen";
         appointment.date = "11.3";
         appointment.location = "Geisel Room 619";
-        appointments.add(appointment);
         childItemList.add(new MyAptChild());
         appointment.setChildItemList(childItemList);
         parentListItems.add(appointment);
@@ -71,10 +70,39 @@ public class FirstFragment extends Fragment {
         appointment2.creator = "ariel chen";
         appointment2.date = "11.4";
         appointment2.location = "Geisel Room 716";
-        appointments.add(appointment2);
-        childItemList.add(new MyAptChild());
+//        childItemList.add(new MyAptChild());
         appointment2.setChildItemList(childItemList);
         parentListItems.add(appointment2);
+
+        MyAptParent appointment3 = new MyAptParent();
+        appointment3.title = "cse 134";
+        appointment3.detail = "midterm review";
+        appointment3.creator = "feicao";
+        appointment3.date = "11.8";
+        appointment3.location = "GH 204";
+//        childItemList.add(new MyAptChild());
+        appointment3.setChildItemList(childItemList);
+        parentListItems.add(appointment3);
+
+        MyAptParent appointment4 = new MyAptParent();
+        appointment4.title = "cse 134";
+        appointment4.detail = "midterm review";
+        appointment4.creator = "feicao";
+        appointment4.date = "11.8";
+        appointment4.location = "GH 204";
+//        childItemList.add(new MyAptChild());
+        appointment4.setChildItemList(childItemList);
+        parentListItems.add(appointment4);
+
+        MyAptParent appointment5 = new MyAptParent();
+        appointment5.title = "cse 134";
+        appointment5.detail = "midterm review";
+        appointment5.creator = "feicao";
+        appointment5.date = "11.8";
+        appointment5.location = "GH 204";
+//        childItemList.add(new MyAptChild());
+        appointment5.setChildItemList(childItemList);
+        parentListItems.add(appointment5);
 
         return parentListItems;
     }
