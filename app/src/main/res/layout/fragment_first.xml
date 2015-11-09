@@ -15,17 +15,16 @@
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text1"
-        android:text="@string/welcome"
-        android:textStyle="bold"
-        android:textColor="#FF6666"
-        android:background="#CCCCFF"
-        android:textColorHighlight="#000000"
-        android:textSize="35sp"
-        android:textIsSelectable="true" />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text1"
+            android:text="@string/welcome"
+            android:textStyle="bold"
+            android:textColor="#FF6666"
+            android:background="#CCCCFF"
+            android:textColorHighlight="#000000"
+            android:textSize="35sp"
+            android:textIsSelectable="true" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv1"
             android:layout_width="match_parent"
