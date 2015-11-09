@@ -1,5 +1,6 @@
 package com.example.cardgame.cardgame;
 
+import com.example.cardgame.cardgame.helper.Constant;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 

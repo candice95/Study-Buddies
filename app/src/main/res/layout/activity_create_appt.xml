@@ -1,0 +1,89 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    >
+
+    <TextView
+        android:id="@+id/text_class"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="60dp"
+        android:textSize="18sp"
+        android:text = "class"
+        />
+
+    <EditText
+        android:id="@+id/edittext_class"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/text_class"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:singleLine="true"
+        />
+
+    <TextView
+        android:id="@+id/text_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="20dp"
+        android:text="type"
+        android:textSize="18sp"
+        android:layout_below="@+id/text_class"
+        />
+
+    <Spinner
+        android:id="@+id/spinner_class"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/text_type"
+        android:layout_below="@+id/edittext_class"
+        android:layout_marginBottom="20dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        />
+
+    <TextView
+        android:id="@+id/text_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:textSize="18sp"
+        android:text = "time"
+        android:layout_below="@id/text_type"
+        />
+
+    <EditText
+        android:id="@+id/edittext_time"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/text_time"
+        android:layout_below="@+id/spinner_class"
+        android:layout_marginBottom="40dp"
+        android:singleLine="true"
+        />
+
+    <TextView
+        android:id="@+id/text_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_time"
+        android:textSize="18sp"
+        android:layout_marginBottom="40dp"
+        android:text = "place"/>
+
+    <EditText
+        android:id="@+id/edittext_place"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/text_place"
+        android:layout_marginBottom="40dp"
+        android:layout_below="@id/edittext_time"
+        android:singleLine="true"
+        />
+
+</RelativeLayout>

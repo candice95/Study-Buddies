@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">Card Game</string>
+    <string name="app_name">Study Buddies</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="welcome">Welcome!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_create_appt">createAppt</string>
+
+    <!--user page-->
+    <string name="user_page_title">Personal</string>
+    <string name="appointment">Appointment</string>
+
 </resources>

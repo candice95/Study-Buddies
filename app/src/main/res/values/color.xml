@@ -1,0 +1,15 @@
+<resources>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#F7E485</color>
+    <color name="orange">#FFB26F</color>
+    <color name="green">#FF99CC00</color>
+
+    <color name="gray_bg">#bdc1c9</color>
+    <color name="gray_main_bg">#F2F2F2</color>
+
+    <color name="blue">#52d0ff</color>
+    <color name="blue_header">#4abbe5</color>
+
+</resources>

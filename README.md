@@ -11,6 +11,6 @@ feature branch: your development branch (E.g. login)
 ###Flow:
 Create a branch off master. 
  
-Once a code is stable, create a pull request to master.(Merge)
+Once a code is stable, merge your code to master.
  
-Remember to **sync** before and after writing your code.
+Remember to **sync** or **pull/push** before and after writing your code.
