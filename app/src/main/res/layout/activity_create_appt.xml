@@ -72,7 +72,7 @@
         </LinearLayout>
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/type"
+            android:id="@+id/detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -85,7 +85,7 @@
             />
 
         <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/initiator"
+            android:id="@+id/creator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -114,7 +114,7 @@
             android:id="@+id/capacity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
             android:textSize="16sp"
             android:hint="Capacity"
             app:met_textColorHint="@color/gray_bg"
@@ -127,7 +127,7 @@
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
             android:textSize="16sp"
             android:hint="Phone"
             app:met_textColorHint="@color/gray_bg"
@@ -150,6 +150,7 @@
             />
 
         <Button
+            android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create an appointment"
@@ -162,7 +163,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             />
-        
+
     </LinearLayout>
 
 </ScrollView>
