@@ -1,89 +1,115 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    >
+    android:padding="20dp">
 
-    <TextView
-        android:id="@+id/text_class"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="60dp"
-        android:textSize="18sp"
-        android:text = "class"
-        />
+        android:orientation="vertical"
+        >
 
-    <EditText
-        android:id="@+id/edittext_class"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/text_class"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="40dp"
-        android:singleLine="true"
-        />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:hint="Course title"
+            app:met_textColorHint="@color/gray_bg"
+            app:met_floatingLabel="normal"
+            app:met_singleLineEllipsis="true"
+            app:met_primaryColor="@color/black"
+            />
 
-    <TextView
-        android:id="@+id/text_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        android:layout_marginTop="20dp"
-        android:text="type"
-        android:textSize="18sp"
-        android:layout_below="@+id/text_class"
-        />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:hint="Type"
+            app:met_textColorHint="@color/gray_bg"
+            app:met_floatingLabel="normal"
+            app:met_singleLineEllipsis="true"
+            app:met_primaryColor="@color/black"
+            />
 
-    <Spinner
-        android:id="@+id/spinner_class"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/text_type"
-        android:layout_below="@+id/edittext_class"
-        android:layout_marginBottom="20dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/initiator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:hint="Initiator"
+            app:met_textColorHint="@color/gray_bg"
+            app:met_floatingLabel="normal"
+            app:met_singleLineEllipsis="true"
+            app:met_primaryColor="@color/black"
+            />
 
-    <TextView
-        android:id="@+id/text_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:textSize="18sp"
-        android:text = "time"
-        android:layout_below="@id/text_type"
-        />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:hint="Location"
+            app:met_textColorHint="@color/gray_bg"
+            app:met_floatingLabel="normal"
+            app:met_singleLineEllipsis="true"
+            app:met_primaryColor="@color/black"
+            />
 
-    <EditText
-        android:id="@+id/edittext_time"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/text_time"
-        android:layout_below="@+id/spinner_class"
-        android:layout_marginBottom="40dp"
-        android:singleLine="true"
-        />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/capacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:hint="Capacity"
+            app:met_textColorHint="@color/gray_bg"
+            app:met_floatingLabel="normal"
+            app:met_singleLineEllipsis="true"
+            app:met_primaryColor="@color/black"
+            />
 
-    <TextView
-        android:id="@+id/text_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text_time"
-        android:textSize="18sp"
-        android:layout_marginBottom="40dp"
-        android:text = "place"/>
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:hint="Phone"
+            app:met_textColorHint="@color/gray_bg"
+            app:met_floatingLabel="normal"
+            app:met_singleLineEllipsis="true"
+            app:met_primaryColor="@color/black"
+            />
 
-    <EditText
-        android:id="@+id/edittext_place"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/text_place"
-        android:layout_marginBottom="40dp"
-        android:layout_below="@id/edittext_time"
-        android:singleLine="true"
-        />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:hint="Email"
+            app:met_textColorHint="@color/gray_bg"
+            app:met_floatingLabel="normal"
+            app:met_singleLineEllipsis="true"
+            app:met_primaryColor="@color/black"
+            />
 
-</RelativeLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create an appointment"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:background="#0066cc"
+            />
+
+    </LinearLayout>
+
+</ScrollView>
