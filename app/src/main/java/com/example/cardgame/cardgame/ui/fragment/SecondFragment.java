@@ -2,6 +2,7 @@ package com.example.cardgame.cardgame.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,22 +27,36 @@ import java.util.List;
 public class SecondFragment extends Fragment {
 
     private RecyclerView rv;
-    private List<Appointment> appointments = new ArrayList<>();
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_second, container, false);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+
         rv = (RecyclerView) view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(llm);
+        refresh();
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
+        return view;
+    }
+
+    private void refresh() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointment");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
+                    List<Appointment> appointments = new ArrayList<>();
                     for (ParseObject parseObject : objects) {
                         Appointment appointment = new Appointment();
                         appointment.title = parseObject.getString("title");
@@ -49,6 +64,7 @@ public class SecondFragment extends Fragment {
                         appointment.creator = parseObject.getString("creator");
                         appointment.location = parseObject.getString("location");
                         appointment.capacity = parseObject.getString("capacity");
+                        appointment.seats = parseObject.getInt("seats");
                         appointment.phone = parseObject.getString("phone");
                         appointment.email = parseObject.getString("email");
                         appointment.month = parseObject.getString("month");
@@ -62,9 +78,9 @@ public class SecondFragment extends Fragment {
                 } else {
 
                 }
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
-        return view;
     }
 
 }

@@ -16,7 +16,7 @@ public class Appointment {
     public String minute;
 
     public String capacity;
-    public String seats;
+    public int seats;
     public String phone;
     public String email;
 }

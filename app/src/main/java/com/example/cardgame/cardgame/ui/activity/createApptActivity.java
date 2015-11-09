@@ -77,6 +77,7 @@ public class createApptActivity extends AppCompatActivity {
                     parseObject.put("creator", getString(creator));
                     parseObject.put("location", getString(location));
                     parseObject.put("capacity", getString(capacity));
+                    parseObject.put("seats", Integer.parseInt(getString(capacity))-1);
                     parseObject.put("phone", getString(phone));
                     parseObject.put("email", getString(email));
                     parseObject.put("month", month.getSelectedItem().toString());
