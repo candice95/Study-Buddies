@@ -30,7 +30,7 @@ public class MyAppointmentCardLayout extends CardView {
         (findViewById(R.id.my_card_view)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("testing","click my card");
+                Log.d("testing","click my appointment");
             }
         });
     }
