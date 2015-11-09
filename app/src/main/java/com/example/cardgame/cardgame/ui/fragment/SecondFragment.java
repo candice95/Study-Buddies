@@ -39,27 +39,40 @@ public class SecondFragment extends Fragment {
         appointment.title = "cse 110";
         appointment.detail = "midterm review";
         appointment.creator = "ariel chen";
-        appointment.date = "11.3";
+        appointment.month = "NOV";
+        appointment.day = "13";
         appointment.location = "Geisel Room 619";
-        appointment.expandText = "This is the expand detail for cse 110 - hahaha";
+        appointment.capacity = "10";
+        appointment.seats = "5";
+        appointment.phone = "85842427857";
+        appointment.email = "shc143@ucsd.edu";
         appointments.add(appointment);
 
         Appointment appointment2 = new Appointment();
         appointment2.title = "cse 132A";
         appointment2.detail = "midterm review";
         appointment2.creator = "ariel chen";
-        appointment2.date = "11.4";
+        appointment2.month = "NOV";
+        appointment2.day = "14";
         appointment2.location = "Geisel Room 716";
-        appointment2.expandText = "This is the expand detail for cse 132a - hahaha";
+        appointment2.capacity = "4";
+        appointment2.seats = "1";
+        appointment2.phone = "8580007857";
+        appointment2.email = "shc143@ucsd.edu";
         appointments.add(appointment2);
 
         Appointment appointment3 = new Appointment();
         appointment3.title = "cse 140L";
         appointment3.detail = "midterm review";
         appointment3.creator = "ariel chen";
-        appointment3.date = "11.5";
+        appointment3.month = "NOV";
+        appointment3.day = "26";
         appointment3.location = "BML Room 218";
-        appointment3.expandText = "This is the expand detail for cse 140L - hahaha";
+        appointment3.capacity = "6";
+        appointment3.seats = "3";
+        appointment3.phone = "8580007857";
+        appointment3.email = "shc143@ucsd.edu";
+
         appointments.add(appointment3);
 
         Log.d("onCreateView", appointments + "");
