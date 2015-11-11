@@ -20,7 +20,7 @@
             android:id="@+id/text1"
             android:text="@string/welcome"
             android:textStyle="bold"
-            android:textColor="#FF6666"
+            android:textColor="#FF8000"
             android:background="@color/gray_main_bg"
             android:textColorHighlight="#000000"
             android:textSize="35sp"

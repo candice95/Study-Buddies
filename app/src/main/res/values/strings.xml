@@ -8,6 +8,7 @@
     <!--user page-->
     <string name="user_page_title">Personal</string>
     <string name="appointment">Appointment</string>
+    <string name="title_activity_main">MainActivity</string>
 
     <string-array name="months">
         <item>Jan</item>

@@ -41,11 +41,11 @@ public class AptExpandableAdapter extends ExpandableRecyclerAdapter<MyAptParentV
     @Override
     public void onBindParentViewHolder(MyAptParentViewHolder pHolder, int i, ParentListItem pList) {
         MyAptParent aptParent = (MyAptParent)pList;
-        pHolder.myAptViewDate.setText("date");
+        pHolder.myAptViewDate.setText("");
         pHolder.myAptViewTitle.setText("title");
-        pHolder.myAptViewDetail.setText("detail");
-        pHolder.myAptViewCreator.setText("creator");
-        pHolder.myAptViewLoc.setText("location");
+        pHolder.myAptViewDetail.setText("3");
+        pHolder.myAptViewCreator.setText("days left until");
+        pHolder.myAptViewLoc.setText("Nov 11");
     }
 
     @Override
