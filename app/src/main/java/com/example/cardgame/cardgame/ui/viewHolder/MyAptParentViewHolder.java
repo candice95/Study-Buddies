@@ -12,17 +12,17 @@ import com.example.cardgame.cardgame.R;
 public class MyAptParentViewHolder extends ParentViewHolder {
     public TextView myAptViewDate;
     public TextView myAptViewTitle;
-    public TextView myAptViewDetail;
-    public TextView myAptViewCreator;
+    public TextView myAptViewDaysLeft;
+    public TextView myAptViewDaysLeftText;
     public TextView myAptViewLoc;
 
     public MyAptParentViewHolder(View itemView) {
         super(itemView);
 
-        myAptViewDate = (TextView)itemView.findViewById(R.id.date);
         myAptViewTitle = (TextView)itemView.findViewById(R.id.title);
-        myAptViewDetail = (TextView)itemView.findViewById(R.id.detail);
-        myAptViewCreator = (TextView)itemView.findViewById(R.id.creator);
+        myAptViewDaysLeft = (TextView)itemView.findViewById(R.id.daysLeft);
+        myAptViewDaysLeftText = (TextView) itemView.findViewById(R.id.daysLeftText);
+        myAptViewDate = (TextView)itemView.findViewById(R.id.date);
         myAptViewLoc = (TextView)itemView.findViewById(R.id.location);
     }
 }

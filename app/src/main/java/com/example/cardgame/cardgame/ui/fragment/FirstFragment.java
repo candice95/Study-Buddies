@@ -13,8 +13,13 @@ import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
 import com.example.cardgame.cardgame.ui.adapter.AptExpandableAdapter;
+import com.example.cardgame.cardgame.ui.adapter.RecyclerViewAdapter;
 import com.example.cardgame.cardgame.ui.component.MyAptChild;
 import com.example.cardgame.cardgame.ui.component.MyAptParent;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,58 +56,50 @@ public class FirstFragment extends Fragment {
 
     private List<ParentListItem> generateApts() {
 
-        List<MyAptChild> childItemList = new ArrayList<>();
         List<ParentListItem> parentListItems = new ArrayList<>();
         // hard code data
         MyAptParent appointment = new MyAptParent();
         appointment.title = "cse 110";
-        appointment.detail = "midterm review";
-        appointment.creator = "ariel chen";
-        appointment.date = "11.3";
-        appointment.location = "Geisel Room 619";
-        childItemList.add(new MyAptChild());
+        appointment.daysLeft = "2";
+        appointment.date = "Nov 13";
+        List<MyAptChild> childItemList = new ArrayList<>();
+        MyAptChild myAptChild = new MyAptChild("19:15", "Midterm Review", "Ariel", "Geisel Room 619", "8589997857", "shc143@ucsd.edu", "bring your practise midterm");
+        childItemList.add(myAptChild);
         appointment.setChildItemList(childItemList);
         parentListItems.add(appointment);
 
         MyAptParent appointment2 = new MyAptParent();
         appointment2.title = "cse 132A";
-        appointment2.detail = "midterm review";
-        appointment2.creator = "ariel chen";
-        appointment2.date = "11.4";
+        appointment2.daysLeft = "3";
+        appointment2.date = "Nov 14";
         appointment2.location = "Geisel Room 716";
-//        childItemList.add(new MyAptChild());
-        appointment2.setChildItemList(childItemList);
+        List<MyAptChild> childItemList2 = new ArrayList<>();
+        MyAptChild myAptChild2 = new MyAptChild("16:30", "Midterm Review", "Feicao", "Geisel Room 716", "8588888888", "example@ucsd.edu", "bring your laptop");
+        childItemList2.add(myAptChild2);
+        appointment2.setChildItemList(childItemList2);
         parentListItems.add(appointment2);
 
         MyAptParent appointment3 = new MyAptParent();
         appointment3.title = "cse 134";
-        appointment3.detail = "midterm review";
-        appointment3.creator = "feicao";
-        appointment3.date = "11.8";
+        appointment3.daysLeft = "5";
+        appointment3.date = "Nov 16";
         appointment3.location = "GH 204";
-//        childItemList.add(new MyAptChild());
-        appointment3.setChildItemList(childItemList);
+        List<MyAptChild> childItemList3 = new ArrayList<>();
+        MyAptChild myAptChild3 = new MyAptChild("08:00", "Midterm Review", "Ariel", "GH 204", "8589997857", "shc143@ucsd.edu", "bring your practise midterm");
+        childItemList3.add(myAptChild3);
+        appointment3.setChildItemList(childItemList3);
         parentListItems.add(appointment3);
 
         MyAptParent appointment4 = new MyAptParent();
-        appointment4.title = "cse 134";
-        appointment4.detail = "midterm review";
-        appointment4.creator = "feicao";
-        appointment4.date = "11.8";
-        appointment4.location = "GH 204";
-//        childItemList.add(new MyAptChild());
-        appointment4.setChildItemList(childItemList);
+        appointment4.title = "cse 135";
+        appointment4.daysLeft = "9";
+        appointment4.date = "Nov 20";
+        appointment4.location = "Giesel 1st floor";
+        List<MyAptChild> childItemList4 = new ArrayList<>();
+        MyAptChild myAptChild4 = new MyAptChild("10:45", "Midterm Review", "Ariel", "Giesel 1st floor", "8589997857", "shc143@ucsd.edu", "work on projects");
+        childItemList4.add(myAptChild4);
+        appointment4.setChildItemList(childItemList4);
         parentListItems.add(appointment4);
-
-        MyAptParent appointment5 = new MyAptParent();
-        appointment5.title = "cse 134";
-        appointment5.detail = "midterm review";
-        appointment5.creator = "feicao";
-        appointment5.date = "11.8";
-        appointment5.location = "GH 204";
-//        childItemList.add(new MyAptChild());
-        appointment5.setChildItemList(childItemList);
-        parentListItems.add(appointment5);
 
         return parentListItems;
     }

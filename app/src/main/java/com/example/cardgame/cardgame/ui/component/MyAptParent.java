@@ -10,8 +10,7 @@ import java.util.List;
 public class MyAptParent implements ParentListItem {
     public List<MyAptChild> mChildrenList;
     public String title;
-    public String detail;
-    public String creator;
+    public String daysLeft;
     public String date;
     public String location;
 
@@ -29,5 +28,17 @@ public class MyAptParent implements ParentListItem {
     @Override
     public boolean isInitiallyExpanded() {
         return false;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDaysLeft() {
+        return daysLeft;
+    }
+
+    public String getDate() {
+        return date;
     }
 }
