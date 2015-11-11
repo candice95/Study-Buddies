@@ -50,13 +50,13 @@ public class AptExpandableAdapter extends ExpandableRecyclerAdapter<MyAptParentV
     @Override
     public void onBindChildViewHolder(MyAptChildViewHolder cHolder, int i, Object cList) {
         MyAptChild aptChild = (MyAptChild)cList;
-        cHolder.myAptTime.setText(aptChild.getTime());
-        cHolder.myAptDetail.setText(aptChild.getDetail());
-        cHolder.myAptInitiator.setText(aptChild.getInitiator());
-        cHolder.myAptLocation.setText(aptChild.getLocation());
-        cHolder.myAptPhoneNum.setText(aptChild.getPhoneNum());
-        cHolder.myAptEmail.setText(aptChild.getEmail());
-        cHolder.myAptComment.setText(aptChild.getComment());
+        cHolder.myAptTime.setText("Time: " + aptChild.getTime());
+        cHolder.myAptDetail.setText("Detail: " + aptChild.getDetail());
+        cHolder.myAptInitiator.setText("Initiator: " + aptChild.getInitiator());
+        cHolder.myAptLocation.setText("Location: " + aptChild.getLocation());
+        cHolder.myAptPhoneNum.setText("PhoneNumber: " + aptChild.getPhoneNum());
+        cHolder.myAptEmail.setText("Email: " + aptChild.getEmail());
+        cHolder.myAptComment.setText("Comment: " + aptChild.getComment());
 
     }
 }
