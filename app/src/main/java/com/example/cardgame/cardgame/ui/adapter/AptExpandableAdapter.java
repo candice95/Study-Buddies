@@ -41,16 +41,22 @@ public class AptExpandableAdapter extends ExpandableRecyclerAdapter<MyAptParentV
     @Override
     public void onBindParentViewHolder(MyAptParentViewHolder pHolder, int i, ParentListItem pList) {
         MyAptParent aptParent = (MyAptParent)pList;
-        pHolder.myAptViewDate.setText("");
-        pHolder.myAptViewTitle.setText("title");
-        pHolder.myAptViewDetail.setText("3");
-        pHolder.myAptViewCreator.setText("days left until");
-        pHolder.myAptViewLoc.setText("Nov 11");
+        pHolder.myAptViewTitle.setText(aptParent.getTitle());
+        pHolder.myAptViewDaysLeft.setText(aptParent.getDaysLeft());
+        pHolder.myAptViewDaysLeftText.setText("days left until");
+        pHolder.myAptViewDate.setText(aptParent.getDate());
     }
 
     @Override
     public void onBindChildViewHolder(MyAptChildViewHolder cHolder, int i, Object cList) {
         MyAptChild aptChild = (MyAptChild)cList;
-        cHolder.reminder.setText("reminder: bring your textbook");
+        cHolder.myAptTime.setText("Time: " + aptChild.getTime());
+        cHolder.myAptDetail.setText("Detail: " + aptChild.getDetail());
+        cHolder.myAptInitiator.setText("Initiator: " + aptChild.getInitiator());
+        cHolder.myAptLocation.setText("Location: " + aptChild.getLocation());
+        cHolder.myAptPhoneNum.setText("PhoneNumber: " + aptChild.getPhoneNum());
+        cHolder.myAptEmail.setText("Email: " + aptChild.getEmail());
+        cHolder.myAptComment.setText("Comment: " + aptChild.getComment());
+
     }
 }

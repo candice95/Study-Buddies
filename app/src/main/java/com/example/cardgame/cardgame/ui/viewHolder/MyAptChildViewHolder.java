@@ -11,11 +11,23 @@ import com.example.cardgame.cardgame.R;
  */
 public class MyAptChildViewHolder extends ChildViewHolder {
 
-    public TextView reminder;
+    public TextView myAptTime;
+    public TextView myAptDetail;
+    public TextView myAptInitiator;
+    public TextView myAptLocation;
+    public TextView myAptPhoneNum;
+    public TextView myAptEmail;
+    public TextView myAptComment;
 
     public MyAptChildViewHolder(View itemView) {
         super(itemView);
 
-        reminder = (TextView) itemView.findViewById(R.id.expand_apt);
+        myAptTime = (TextView) itemView.findViewById(R.id.time);
+        myAptDetail = (TextView) itemView.findViewById(R.id.detail);
+        myAptInitiator = (TextView) itemView.findViewById(R.id.initiator);
+        myAptLocation = (TextView) itemView.findViewById(R.id.location);
+        myAptPhoneNum = (TextView) itemView.findViewById(R.id.phoneNum);
+        myAptEmail = (TextView) itemView.findViewById(R.id.email);
+        myAptComment = (TextView) itemView.findViewById(R.id.comment);
     }
 }

@@ -4,13 +4,72 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/expand_apt"
+        android:id="@+id/time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:padding="8dp"
-        android:background="@color/gray_main_bg"
-        android:text="bring your text book!"/>
+        android:background="@color/gray_main_bg" />
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/time"
+        android:padding="8dp"
+        android:background="@color/gray_main_bg" />
+
+    <TextView
+        android:id="@+id/initiator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/detail"
+        android:padding="8dp"
+        android:background="@color/gray_main_bg" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/initiator"
+        android:padding="8dp"
+        android:background="@color/gray_main_bg" />
+
+    <TextView
+        android:id="@+id/phoneNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/location"
+        android:padding="8dp"
+        android:background="@color/gray_main_bg" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phoneNum"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="8dp"
+        android:background="@color/gray_main_bg" />
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/email"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="8dp"
+        android:background="@color/gray_main_bg" />
 
 </RelativeLayout>
