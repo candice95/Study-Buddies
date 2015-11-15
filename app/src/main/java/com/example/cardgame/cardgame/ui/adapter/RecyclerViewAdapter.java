@@ -26,7 +26,6 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Appointment> appointments;
-//    static AdapterView.OnItemClickListener listener;
 
     public RecyclerViewAdapter(List<Appointment> appointments) {
         this.appointments = appointments;
@@ -49,22 +48,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return appointments.size();
     }
 
-    private static class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private static class CardViewHolder extends RecyclerView.ViewHolder{
         AppointmentCardLayout appointmentCardLayout;
-        static AdapterView.OnItemClickListener listener;
         public CardViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
             appointmentCardLayout = (AppointmentCardLayout) itemView.findViewById(R.id.card_view);
 
-        }
-
-        @Override
-        public void onClick(View v) {
-            if(listener != null) {
-                Log.d("clickeddd", "new Throwable tr");
-                Log.i("clicked", "apt clicked");
-            }
         }
     }
 }
