@@ -20,6 +20,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,6 +34,7 @@ public class FirstFragment extends Fragment {
 
     private RecyclerView rv1;
     private List<MyAptParent> appointments = new ArrayList<>();
+    private ParseUser currentUser = ParseUser.getCurrentUser();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
