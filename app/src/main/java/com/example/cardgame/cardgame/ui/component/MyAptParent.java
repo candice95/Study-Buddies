@@ -11,6 +11,7 @@ public class MyAptParent implements ParentListItem {
     public List<MyAptChild> mChildrenList;
     public String title;
     public String daysLeft;
+    public String daysLeftText;
     public String date;
     public String location;
 
@@ -37,6 +38,8 @@ public class MyAptParent implements ParentListItem {
     public String getDaysLeft() {
         return daysLeft;
     }
+
+    public String getDaysLeftText() {return daysLeftText; }
 
     public String getDate() {
         return date;
