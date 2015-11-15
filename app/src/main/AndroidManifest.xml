@@ -23,8 +23,7 @@
         </activity>
         <activity
             android:name=".ui.activity.UserpageActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.activity.ViewAppointmentActivity" />
         <activity
             android:name=".ui.activity.createApptActivity"

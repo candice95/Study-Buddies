@@ -11,9 +11,9 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/date"
-            android:layout_width="80dp"
-            android:layout_height="90dp"
+            android:id="@+id/leftBar"
+            android:layout_width="10dp"
+            android:layout_height="130dp"
             android:layout_centerVertical="true"
             android:gravity="center"
             android:layout_marginTop="10dp"
@@ -22,8 +22,7 @@
             android:layout_marginRight="20dp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:background="@color/green"
-            android:textSize="30sp"
+            android:background="#FF8000"
             />
 
         <TextView
@@ -31,40 +30,53 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/date"
-            android:textColor="@color/black"
+            android:layout_toRightOf="@+id/leftBar"
+            android:textColor="#FF8000"
             android:textStyle="bold"
+            android:textSize="30sp"
             />
 
-        <TextView
-            android:id="@+id/detail"
+        <View
+            android:id="@+id/separateLine"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
             android:layout_below="@+id/title"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/date"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:id="@+id/daysLeft"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/separateLine"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/leftBar"
+            android:textColor="@color/black"
+            android:textSize="60sp"
+            />
+
+        <TextView
+            android:id="@+id/daysLeftText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/separateLine"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/daysLeft"
+            android:textSize="18sp"
             android:textColor="@color/black"
             />
 
         <TextView
-            android:id="@+id/creator"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/detail"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/date"
-            android:textColor="@color/black"
-            />
-
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/creator"
-            android:layout_marginTop="5dp"
+            android:layout_below="@+id/daysLeftText"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            android:layout_toRightOf="@+id/date"
+            android:layout_toRightOf="@+id/daysLeft"
+            android:textSize="18sp"
             android:textColor="@color/black"
             />
 

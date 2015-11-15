@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.example.cardgame.cardgame.R;
@@ -23,15 +24,6 @@ public class AppointmentCardLayout extends CardView {
     private int descriptionViewFullHeight;
     boolean isCalled = false;
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if(isCalled) return;
-        isCalled = true;
-        descriptionViewMinHeight = cardView.getHeight();
-        descriptionViewFullHeight = cardView.getHeight() * 2;
-    }
-
     public AppointmentCardLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         cardView = (CardView) findViewById(R.id.card_view);
@@ -47,9 +39,10 @@ public class AppointmentCardLayout extends CardView {
         ((TextView) findViewById(R.id.date_month)).setText(appointment.month);
         ((TextView) findViewById(R.id.date_day)).setText(appointment.day);
         ((TextView) findViewById(R.id.title)).setText(appointment.title);
-        ((TextView) findViewById(R.id.detail)).setText(appointment.detail);
-        ((TextView) findViewById(R.id.creator)).setText("Initiator: "+appointment.creator);
+        ((TextView) findViewById(R.id.detail)).setText("Detail: " + appointment.detail);
+        ((TextView) findViewById(R.id.creator)).setText("Initiator: " + appointment.creator);
         ((TextView) findViewById(R.id.location)).setText("Location: " + appointment.location);
+        ((TextView) findViewById(R.id.time)).setText("Time: " + appointment.hour + " : " + appointment.minute);
 
         expandView = findViewById(R.id.card_view_expand_area);
         ((TextView) findViewById(R.id.expand_text_capacity)).setText("Capacity: "+appointment.capacity);
@@ -61,6 +54,19 @@ public class AppointmentCardLayout extends CardView {
             @Override
             public void onClick(View v) {
 
+            }
+        });
+
+        cardView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if(isCalled) {
+                    cardView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    return;
+                }
+                isCalled = true;
+                descriptionViewMinHeight = cardView.getHeight();
+                descriptionViewFullHeight = cardView.getHeight() * 2;
             }
         });
     }

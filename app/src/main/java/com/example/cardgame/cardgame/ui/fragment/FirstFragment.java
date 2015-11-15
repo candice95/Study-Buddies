@@ -9,12 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
-import com.example.cardgame.cardgame.ui.adapter.MyRecyclerViewAdapter;
+import com.example.cardgame.cardgame.ui.adapter.AptExpandableAdapter;
+import com.example.cardgame.cardgame.ui.adapter.RecyclerViewAdapter;
+import com.example.cardgame.cardgame.ui.component.MyAptChild;
+import com.example.cardgame.cardgame.ui.component.MyAptParent;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Syuman on 10/26/15.
@@ -22,7 +33,8 @@ import java.util.List;
 public class FirstFragment extends Fragment {
 
     private RecyclerView rv1;
-    private List<Appointment> appointments = new ArrayList<>();
+    private List<MyAptParent> appointments = new ArrayList<>();
+    private ParseUser currentUser = ParseUser.getCurrentUser();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,62 +43,72 @@ public class FirstFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv1.setLayoutManager(llm);
         Log.d("onCreateView", rv1 + "");
-        // hard code data
-
-        Appointment appointment = new Appointment();
-        appointment.title = "cse 110";
-        appointment.detail = "midterm review";
-        appointment.creator = "ariel chen";
-        appointment.date = "11.3";
-        appointment.location = "Geisel Room 619";
-        appointments.add(appointment);
-
-        Appointment appointment2 = new Appointment();
-        appointment2.title = "cse 132A";
-        appointment2.detail = "midterm review";
-        appointment2.creator = "ariel chen";
-        appointment2.date = "11.4";
-        appointment2.location = "Geisel Room 716";
-        appointments.add(appointment2);
-
-        Appointment appointment3 = new Appointment();
-        appointment3.title = "cse 140L";
-        appointment3.detail = "midterm review";
-        appointment3.creator = "ariel chen";
-        appointment3.date = "11.5";
-        appointment3.location = "BML Room 218";
-        appointments.add(appointment3);
-
-        Appointment appointment4 = new Appointment();
-        appointment4.title = "cse 170";
-        appointment4.detail = "midterm review";
-        appointment4.creator = "feicao";
-        appointment4.date = "11.5";
-        appointment4.location = "BML Room 218";
-        appointments.add(appointment4);
-
-        Appointment appointment5 = new Appointment();
-        appointment5.title = "cse 170";
-        appointment5.detail = "midterm review";
-        appointment5.creator = "feicao";
-        appointment5.date = "11.5";
-        appointment5.location = "BML Room 218";
-        appointments.add(appointment4);
-
-        Appointment appointment6 = new Appointment();
-        appointment6.title = "cse 170";
-        appointment6.detail = "midterm review";
-        appointment6.creator = "feicao";
-        appointment6.date = "11.5";
-        appointment6.location = "BML Room 218";
-        appointments.add(appointment4);
-
-
 
         Log.d("onCreateView", appointments + "");
-        MyRecyclerViewAdapter recyclerViewAdapter = new MyRecyclerViewAdapter(appointments);
-        rv1.setAdapter(recyclerViewAdapter);
+//        MyRecyclerViewAdapter recyclerViewAdapter = new MyRecyclerViewAdapter(appointments);
+
+        AptExpandableAdapter aptExpandableAdapter = new AptExpandableAdapter(getActivity(),generateApts());
+        aptExpandableAdapter.onRestoreInstanceState(savedInstanceState);
+        rv1.setAdapter(aptExpandableAdapter);
         return view;
+    }
+
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ((AptExpandableAdapter) rv1.getAdapter()).onSaveInstanceState(outState);
+    }
+
+    private List<ParentListItem> generateApts() {
+
+        List<ParentListItem> parentListItems = new ArrayList<>();
+        // hard code data
+
+        Calendar aptDate=Calendar.getInstance();
+        aptDate.set(2015, Calendar.NOVEMBER, 13);
+        Calendar now = Calendar.getInstance();
+        long diffMillis= Math.abs(now.getTimeInMillis() - aptDate.getTimeInMillis());
+        long differenceInDays = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
+
+        MyAptParent appointment = new MyAptParent();
+        appointment.title = "cse 110";
+        appointment.daysLeft = ""+differenceInDays;
+        if(now.getTimeInMillis() - aptDate.getTimeInMillis() > 0 ) {
+            appointment.daysLeftText = "days passed since";
+        }
+        else {
+            appointment.daysLeftText = "days left until";
+        }
+        appointment.date = "Nov 13";
+        List<MyAptChild> childItemList = new ArrayList<>();
+        MyAptChild myAptChild = new MyAptChild("19:15", "Midterm Review", "Ariel", "Geisel Room 619", "8589997857", "shc143@ucsd.edu", "bring your practise midterm");
+        childItemList.add(myAptChild);
+        appointment.setChildItemList(childItemList);
+        parentListItems.add(appointment);
+
+
+        MyAptParent appointment2 = new MyAptParent();
+        appointment2.title = "cse 132A";
+        appointment2.daysLeft = "3";
+        appointment2.date = "Nov 14";
+        appointment2.location = "Geisel Room 716";
+        List<MyAptChild> childItemList2 = new ArrayList<>();
+        MyAptChild myAptChild2 = new MyAptChild("16:30", "Midterm Review", "Feicao", "Geisel Room 716", "8588888888", "example@ucsd.edu", "bring your laptop");
+        childItemList2.add(myAptChild2);
+        appointment2.setChildItemList(childItemList2);
+        parentListItems.add(appointment2);
+
+        MyAptParent appointment3 = new MyAptParent();
+        appointment3.title = "cse 134";
+        appointment3.daysLeft = "5";
+        appointment3.date = "Nov 16";
+        appointment3.location = "GH 204";
+        List<MyAptChild> childItemList3 = new ArrayList<>();
+        MyAptChild myAptChild3 = new MyAptChild("08:00", "Midterm Review", "Ariel", "GH 204", "8589997857", "shc143@ucsd.edu", "bring your practise midterm");
+        childItemList3.add(myAptChild3);
+        appointment3.setChildItemList(childItemList3);
+        parentListItems.add(appointment3);
+
+        return parentListItems;
     }
 
 }
