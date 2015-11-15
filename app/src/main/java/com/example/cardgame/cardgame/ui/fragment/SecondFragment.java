@@ -71,6 +71,7 @@ public class SecondFragment extends Fragment {
                         appointment.day = parseObject.getString("day");
                         appointment.hour = parseObject.getString("hour");
                         appointment.minute = parseObject.getString("minute");
+                        appointment.id = parseObject.getObjectId();
                         appointments.add(appointment);
                     }
                     RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(appointments);
