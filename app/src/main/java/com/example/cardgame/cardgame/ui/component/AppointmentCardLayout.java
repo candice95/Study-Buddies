@@ -9,15 +9,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import java.util.List;
 
 /**
  * Created by chenshiyu on 10/30/15.
  */
 public class AppointmentCardLayout extends CardView {
 
+    private Appointment appointment;
     private CardView cardView;
     private View expandView;
     private int descriptionViewMinHeight;
@@ -35,7 +47,8 @@ public class AppointmentCardLayout extends CardView {
         });
     }
 
-    public void setContent(Appointment appointment) {
+    public void setContent(Appointment currentAppointment) {
+        this.appointment = currentAppointment;
         ((TextView) findViewById(R.id.date_month)).setText(appointment.month);
         ((TextView) findViewById(R.id.date_day)).setText(appointment.day);
         ((TextView) findViewById(R.id.title)).setText(appointment.title);
@@ -53,7 +66,7 @@ public class AppointmentCardLayout extends CardView {
         findViewById(R.id.button_join).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                join();
             }
         });
 
@@ -125,6 +138,65 @@ public class AppointmentCardLayout extends CardView {
             });
         }
         anim.start();
+    }
+
+    private void join() {
+        if (appointment.seats != 0) { // check if seat available
+            // check if appointment is already joined
+            final ParseUser user = ParseUser.getCurrentUser();
+            final ParseRelation<ParseObject> relation = user.getRelation("joined");
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointment");
+            query.getInBackground(appointment.id, new GetCallback<ParseObject>() {
+                @Override
+                public void done(final ParseObject object, ParseException e) {
+                    if (e == null) {
+                        relation.getQuery().findInBackground(new FindCallback<ParseObject>() {
+                            @Override
+                            public void done(List<ParseObject> objects, ParseException e) {
+                                if (e == null) {
+                                    if (objects.contains(object)) {
+                                        showToast("You have already joined the appointment");
+                                    } else {
+                                        relation.add(object);
+                                        user.saveInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(ParseException e) {
+                                                if (e == null) {
+                                                    object.increment("seats", -1); // decrease available seats
+                                                    object.saveInBackground(new SaveCallback() {
+                                                        @Override
+                                                        public void done(ParseException e) {
+                                                            if (e == null) {
+                                                                ((TextView) findViewById(R.id.expand_text_seats)).setText("Seats available: "+ (appointment.seats - 1));
+                                                                showToast("joined successfully");
+                                                            } else {
+                                                                showToast("joined fail");
+                                                            }
+                                                        }
+                                                    });
+                                                } else {
+                                                    showToast("error occurs, retry");
+                                                }
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    showToast("error occurs, retry");
+                                }
+                            }
+                        });
+                    } else {
+                        showToast("error occurs, retry");
+                    }
+                }
+            });
+        } else {
+            showToast("Sorry, there's no more seat available");
+        }
+    }
+
+    private void showToast(String string) {
+        Toast.makeText(getContext(), string, Toast.LENGTH_LONG).show();
     }
 
 }
