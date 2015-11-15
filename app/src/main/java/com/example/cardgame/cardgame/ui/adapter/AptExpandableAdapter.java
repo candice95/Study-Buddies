@@ -43,7 +43,7 @@ public class AptExpandableAdapter extends ExpandableRecyclerAdapter<MyAptParentV
         MyAptParent aptParent = (MyAptParent)pList;
         pHolder.myAptViewTitle.setText(aptParent.getTitle());
         pHolder.myAptViewDaysLeft.setText(aptParent.getDaysLeft());
-        pHolder.myAptViewDaysLeftText.setText("days left until");
+        pHolder.myAptViewDaysLeftText.setText(aptParent.getDaysLeftText());
         pHolder.myAptViewDate.setText(aptParent.getDate());
     }
 

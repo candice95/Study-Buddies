@@ -22,7 +22,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Syuman on 10/26/15.
@@ -58,15 +60,29 @@ public class FirstFragment extends Fragment {
 
         List<ParentListItem> parentListItems = new ArrayList<>();
         // hard code data
+
+        Calendar aptDate=Calendar.getInstance();
+        aptDate.set(2015, Calendar.NOVEMBER, 13);
+        Calendar now = Calendar.getInstance();
+        long diffMillis= Math.abs(now.getTimeInMillis() - aptDate.getTimeInMillis());
+        long differenceInDays = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
+
         MyAptParent appointment = new MyAptParent();
         appointment.title = "cse 110";
-        appointment.daysLeft = "2";
+        appointment.daysLeft = ""+differenceInDays;
+        if(now.getTimeInMillis() - aptDate.getTimeInMillis() > 0 ) {
+            appointment.daysLeftText = "days passed since";
+        }
+        else {
+            appointment.daysLeftText = "days left until";
+        }
         appointment.date = "Nov 13";
         List<MyAptChild> childItemList = new ArrayList<>();
         MyAptChild myAptChild = new MyAptChild("19:15", "Midterm Review", "Ariel", "Geisel Room 619", "8589997857", "shc143@ucsd.edu", "bring your practise midterm");
         childItemList.add(myAptChild);
         appointment.setChildItemList(childItemList);
         parentListItems.add(appointment);
+
 
         MyAptParent appointment2 = new MyAptParent();
         appointment2.title = "cse 132A";
@@ -89,17 +105,6 @@ public class FirstFragment extends Fragment {
         childItemList3.add(myAptChild3);
         appointment3.setChildItemList(childItemList3);
         parentListItems.add(appointment3);
-
-        MyAptParent appointment4 = new MyAptParent();
-        appointment4.title = "cse 135";
-        appointment4.daysLeft = "9";
-        appointment4.date = "Nov 20";
-        appointment4.location = "Giesel 1st floor";
-        List<MyAptChild> childItemList4 = new ArrayList<>();
-        MyAptChild myAptChild4 = new MyAptChild("10:45", "Midterm Review", "Ariel", "Giesel 1st floor", "8589997857", "shc143@ucsd.edu", "work on projects");
-        childItemList4.add(myAptChild4);
-        appointment4.setChildItemList(childItemList4);
-        parentListItems.add(appointment4);
 
         return parentListItems;
     }
