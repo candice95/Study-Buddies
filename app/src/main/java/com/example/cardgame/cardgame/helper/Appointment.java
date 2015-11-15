@@ -5,6 +5,7 @@ package com.example.cardgame.cardgame.helper;
  */
 public class Appointment {
 
+    public String id;
     public String title;
     public String detail;
     public String creator;
