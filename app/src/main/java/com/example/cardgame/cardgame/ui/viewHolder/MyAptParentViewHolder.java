@@ -1,5 +1,6 @@
 package com.example.cardgame.cardgame.ui.viewHolder;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -24,5 +25,6 @@ public class MyAptParentViewHolder extends ParentViewHolder {
         myAptViewDaysLeftText = (TextView) itemView.findViewById(R.id.daysLeftText);
         myAptViewDate = (TextView)itemView.findViewById(R.id.date);
         myAptViewLoc = (TextView)itemView.findViewById(R.id.location);
+
     }
 }
