@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.example.cardgame.cardgame.R;
@@ -22,19 +24,18 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Syuman on 10/26/15.
- */
 public class FirstFragment extends Fragment {
 
     private RecyclerView rv1;
     private List<MyAptParent> appointments = new ArrayList<>();
-    private ParseUser currentUser = ParseUser.getCurrentUser();
+    static List<ParentListItem> parentListItems = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,11 +46,7 @@ public class FirstFragment extends Fragment {
         Log.d("onCreateView", rv1 + "");
 
         Log.d("onCreateView", appointments + "");
-//        MyRecyclerViewAdapter recyclerViewAdapter = new MyRecyclerViewAdapter(appointments);
-
-        AptExpandableAdapter aptExpandableAdapter = new AptExpandableAdapter(getActivity(),generateApts());
-        aptExpandableAdapter.onRestoreInstanceState(savedInstanceState);
-        rv1.setAdapter(aptExpandableAdapter);
+        getApts();
         return view;
     }
 
@@ -58,57 +55,55 @@ public class FirstFragment extends Fragment {
         ((AptExpandableAdapter) rv1.getAdapter()).onSaveInstanceState(outState);
     }
 
-    private List<ParentListItem> generateApts() {
-
-        List<ParentListItem> parentListItems = new ArrayList<>();
-        // hard code data
-
-        Calendar aptDate=Calendar.getInstance();
-        aptDate.set(2015, Calendar.NOVEMBER, 13);
-        Calendar now = Calendar.getInstance();
-        long diffMillis= Math.abs(now.getTimeInMillis() - aptDate.getTimeInMillis());
-        long differenceInDays = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
-
-        MyAptParent appointment = new MyAptParent();
-        appointment.title = "cse 110";
-        appointment.daysLeft = ""+differenceInDays;
-        if(now.getTimeInMillis() - aptDate.getTimeInMillis() > 0 ) {
-            appointment.daysLeftText = "days passed since";
-        }
-        else {
-            appointment.daysLeftText = "days left until";
-        }
-        appointment.date = "Nov 13";
-        List<MyAptChild> childItemList = new ArrayList<>();
-        MyAptChild myAptChild = new MyAptChild("19:15", "Midterm Review", "Ariel", "Geisel Room 619", "8589997857", "shc143@ucsd.edu", "bring your practise midterm");
-        childItemList.add(myAptChild);
-        appointment.setChildItemList(childItemList);
-        parentListItems.add(appointment);
-
-
-        MyAptParent appointment2 = new MyAptParent();
-        appointment2.title = "cse 132A";
-        appointment2.daysLeft = "3";
-        appointment2.date = "Nov 14";
-        appointment2.location = "Geisel Room 716";
-        List<MyAptChild> childItemList2 = new ArrayList<>();
-        MyAptChild myAptChild2 = new MyAptChild("16:30", "Midterm Review", "Feicao", "Geisel Room 716", "8588888888", "example@ucsd.edu", "bring your laptop");
-        childItemList2.add(myAptChild2);
-        appointment2.setChildItemList(childItemList2);
-        parentListItems.add(appointment2);
-
-        MyAptParent appointment3 = new MyAptParent();
-        appointment3.title = "cse 134";
-        appointment3.daysLeft = "5";
-        appointment3.date = "Nov 16";
-        appointment3.location = "GH 204";
-        List<MyAptChild> childItemList3 = new ArrayList<>();
-        MyAptChild myAptChild3 = new MyAptChild("08:00", "Midterm Review", "Ariel", "GH 204", "8589997857", "shc143@ucsd.edu", "bring your practise midterm");
-        childItemList3.add(myAptChild3);
-        appointment3.setChildItemList(childItemList3);
-        parentListItems.add(appointment3);
-
-        return parentListItems;
+    public void getApts() {
+        final ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointment");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    for (ParseObject parseObject : objects) {
+                        if (parseObject.getString("creator").equals(currentUser.getUsername())) {
+                            String title = parseObject.getString("title");
+                            String detail = parseObject.getString("detail");
+                            String location = parseObject.getString("location");
+                            String phone = parseObject.getString("phone");
+                            String email = parseObject.getString("email");
+                            String month = parseObject.getString("month");
+                            String day = parseObject.getString("day");
+                            int dayInt = Integer.parseInt(day);
+                            String hour = parseObject.getString("hour");
+                            String minute = parseObject.getString("minute");
+                            String time = hour + ":" + minute;
+                            Log.d("generateApt", time);
+                            Calendar aptDate = Calendar.getInstance();
+                            aptDate.set(2015, Calendar.NOVEMBER, dayInt);
+                            Calendar now = Calendar.getInstance();
+                            long diffMillis = Math.abs(now.getTimeInMillis() - aptDate.getTimeInMillis());
+                            long differenceInDays = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
+                            MyAptParent appointment = new MyAptParent();
+                            appointment.title = title;
+                            appointment.daysLeft = "" + differenceInDays;
+                            if (now.getTimeInMillis() - aptDate.getTimeInMillis() > 0) {
+                                appointment.daysLeftText = "days passed since";
+                            } else {
+                                appointment.daysLeftText = "days left until";
+                            }
+                            appointment.date = month + " " + day;
+                            List<MyAptChild> childItemList = new ArrayList<>();
+                            MyAptChild myAptChild = new MyAptChild(time, detail, currentUser.getUsername(), location, phone, email, "finish your practise midterm");
+                            childItemList.add(myAptChild);
+                            appointment.setChildItemList(childItemList);
+                            FirstFragment.parentListItems.add(appointment);
+                            Log.d("generateApt", FirstFragment.parentListItems.size() + "");
+                            Log.d("generateApt", appointment.date);
+                        }
+                    }
+                    AptExpandableAdapter aptExpandableAdapter = new AptExpandableAdapter(getActivity(),FirstFragment.parentListItems);
+                    rv1.setAdapter(aptExpandableAdapter);
+                }
+            }
+        });
     }
 
 }
