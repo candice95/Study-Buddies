@@ -34,7 +34,6 @@ public class FirstFragment extends Fragment {
 
     private RecyclerView rv1;
     private List<MyAptParent> appointments = new ArrayList<>();
-    private ParseUser currentUser = ParseUser.getCurrentUser();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,8 +44,6 @@ public class FirstFragment extends Fragment {
         Log.d("onCreateView", rv1 + "");
 
         Log.d("onCreateView", appointments + "");
-//        MyRecyclerViewAdapter recyclerViewAdapter = new MyRecyclerViewAdapter(appointments);
-
         AptExpandableAdapter aptExpandableAdapter = new AptExpandableAdapter(getActivity(),generateApts());
         aptExpandableAdapter.onRestoreInstanceState(savedInstanceState);
         rv1.setAdapter(aptExpandableAdapter);
@@ -59,6 +56,9 @@ public class FirstFragment extends Fragment {
     }
 
     private List<ParentListItem> generateApts() {
+        final ParseUser currentUser = ParseUser.getCurrentUser();
+        Log.d("generateApt", currentUser.getUsername());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointment");
 
         List<ParentListItem> parentListItems = new ArrayList<>();
         // hard code data
