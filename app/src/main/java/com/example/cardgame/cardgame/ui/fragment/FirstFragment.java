@@ -67,21 +67,23 @@ public class FirstFragment extends Fragment {
     }
 
     public void getApts() {
-        // also need to getQuery("User")
-        // joined: View Relations, query to get the list of appointments joined
         final List<ParentListItem> parentListItems = new ArrayList<>();
         final ParseUser currentUser = ParseUser.getCurrentUser();
-        final ParseRelation<ParseObject> relation = currentUser.getRelation("joined");
-//
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointment");
-        query.findInBackground(new FindCallback<ParseObject>() {
+        ParseQuery<ParseObject> createByMe = ParseQuery.getQuery("Appointment");
+        createByMe.whereEqualTo("creator", currentUser.getUsername());
+        ParseQuery<ParseObject> iJoin = currentUser.getRelation("joined").getQuery();
+        List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+        queries.add(createByMe);
+        queries.add(iJoin);
+        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+        mainQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
                     for (ParseObject parseObject : objects) {
-                        if (parseObject.getString("creator").equals(currentUser.getUsername())) {
                             String title = parseObject.getString("title");
                             String detail = parseObject.getString("detail");
+                            String creator = parseObject.getString("creator");
                             String location = parseObject.getString("location");
                             String phone = parseObject.getString("phone");
                             String email = parseObject.getString("email");
@@ -91,14 +93,43 @@ public class FirstFragment extends Fragment {
                             String hour = parseObject.getString("hour");
                             String minute = parseObject.getString("minute");
                             String time = hour + ":" + minute;
-                            Log.d("generateApt", time);
                             Calendar aptDate = Calendar.getInstance();
-                            if(parseObject.getString("month").equals("Nov")) {
-                                aptDate.set(2015, Calendar.NOVEMBER, dayInt);
-                            }
-                            else if(parseObject.getString("month").equals("Dec")) {
-                                aptDate.set(2015, Calendar.DECEMBER, dayInt);
-                            }
+                        if(parseObject.getString("month").equals("Jan")) {
+                            aptDate.set(2015, Calendar.JANUARY, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Feb")) {
+                            aptDate.set(2015, Calendar.FEBRUARY, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Mar")) {
+                            aptDate.set(2015, Calendar.MARCH, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Apr")) {
+                            aptDate.set(2015, Calendar.APRIL, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("May")) {
+                            aptDate.set(2015, Calendar.MAY, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Jun")) {
+                            aptDate.set(2015, Calendar.JUNE, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Jul")) {
+                            aptDate.set(2015, Calendar.JULY, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Aug")) {
+                            aptDate.set(2015, Calendar.AUGUST, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Sep")) {
+                            aptDate.set(2015, Calendar.SEPTEMBER, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Oct")) {
+                            aptDate.set(2015, Calendar.OCTOBER, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Nov")) {
+                            aptDate.set(2015, Calendar.NOVEMBER, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Dec")) {
+                            aptDate.set(2015, Calendar.DECEMBER, dayInt);
+                        }
                             Calendar now = Calendar.getInstance();
                             long diffMillis = Math.abs(now.getTimeInMillis() - aptDate.getTimeInMillis());
                             long differenceInDays = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
@@ -112,11 +143,10 @@ public class FirstFragment extends Fragment {
                             }
                             appointment.date = month + " " + day;
                             List<MyAptChild> childItemList = new ArrayList<>();
-                            MyAptChild myAptChild = new MyAptChild(time, detail, currentUser.getUsername(), location, phone, email, "finish your practise midterm");
+                            MyAptChild myAptChild = new MyAptChild(time, detail, creator, location, phone, email, "finish your practise midterm");
                             childItemList.add(myAptChild);
                             appointment.setChildItemList(childItemList);
                             parentListItems.add(appointment);
-                        }
                     }
                     AptExpandableAdapter aptExpandableAdapter = new AptExpandableAdapter(getActivity(),parentListItems);
                     rv1.setAdapter(aptExpandableAdapter);
