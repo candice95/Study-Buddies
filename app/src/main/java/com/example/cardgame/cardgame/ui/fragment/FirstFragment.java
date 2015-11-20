@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import org.w3c.dom.Text;
@@ -37,19 +39,25 @@ import java.util.concurrent.TimeUnit;
 public class FirstFragment extends Fragment {
 
     private RecyclerView rv1;
-    private List<MyAptParent> appointments = new ArrayList<>();
-    static List<ParentListItem> parentListItems = new ArrayList<>();
+    private SwipeRefreshLayout swipeRefreshLayout1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first, container, false);
         rv1 = (RecyclerView) view.findViewById(R.id.rv1);
+        swipeRefreshLayout1 = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout1);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv1.setLayoutManager(llm);
         Log.d("onCreateView", rv1 + "");
 
-        Log.d("onCreateView", appointments + "");
         getApts();
+
+        swipeRefreshLayout1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getApts();
+            }
+        });
         return view;
     }
 
@@ -59,7 +67,10 @@ public class FirstFragment extends Fragment {
     }
 
     public void getApts() {
+        final List<ParentListItem> parentListItems = new ArrayList<>();
         final ParseUser currentUser = ParseUser.getCurrentUser();
+        final ParseRelation<ParseObject> relation = currentUser.getRelation("joined");
+//
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointment");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -97,14 +108,13 @@ public class FirstFragment extends Fragment {
                             MyAptChild myAptChild = new MyAptChild(time, detail, currentUser.getUsername(), location, phone, email, "finish your practise midterm");
                             childItemList.add(myAptChild);
                             appointment.setChildItemList(childItemList);
-                            FirstFragment.parentListItems.add(appointment);
-                            Log.d("generateApt", FirstFragment.parentListItems.size() + "");
-                            Log.d("generateApt", appointment.date);
+                            parentListItems.add(appointment);
                         }
                     }
-                    AptExpandableAdapter aptExpandableAdapter = new AptExpandableAdapter(getActivity(),FirstFragment.parentListItems);
+                    AptExpandableAdapter aptExpandableAdapter = new AptExpandableAdapter(getActivity(),parentListItems);
                     rv1.setAdapter(aptExpandableAdapter);
                 }
+                swipeRefreshLayout1.setRefreshing(false);
             }
         });
     }
