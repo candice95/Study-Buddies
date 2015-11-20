@@ -8,6 +8,7 @@ import java.util.List;
  * Created by apple on 11/6/15.
  */
 public class MyAptParent implements ParentListItem {
+    public String id;
     public List<MyAptChild> mChildrenList;
     public String title;
     public String daysLeft;
