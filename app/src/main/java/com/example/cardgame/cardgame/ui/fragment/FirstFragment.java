@@ -59,6 +59,8 @@ public class FirstFragment extends Fragment {
     }
 
     public void getApts() {
+        // also need to getQuery("User")
+        // joined: View Relations, query to get the list of appointments joined
         final ParseUser currentUser = ParseUser.getCurrentUser();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointment");
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -80,7 +82,12 @@ public class FirstFragment extends Fragment {
                             String time = hour + ":" + minute;
                             Log.d("generateApt", time);
                             Calendar aptDate = Calendar.getInstance();
-                            aptDate.set(2015, Calendar.NOVEMBER, dayInt);
+                            if(parseObject.getString("month").equals("Nov")) {
+                                aptDate.set(2015, Calendar.NOVEMBER, dayInt);
+                            }
+                            else if(parseObject.getString("month").equals("Dec")) {
+                                aptDate.set(2015, Calendar.DECEMBER, dayInt);
+                            }
                             Calendar now = Calendar.getInstance();
                             long diffMillis = Math.abs(now.getTimeInMillis() - aptDate.getTimeInMillis());
                             long differenceInDays = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
