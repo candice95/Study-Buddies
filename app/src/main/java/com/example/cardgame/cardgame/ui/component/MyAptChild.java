@@ -7,6 +7,7 @@ import android.util.Log;
  */
 public class MyAptChild {
 
+    public String id;
     public String time;
     public String detail;
     public String initiator;
@@ -16,7 +17,8 @@ public class MyAptChild {
     public String comment;
 
 
-    public MyAptChild(String paramTime, String paramDetail, String paramInitiator, String paramLocation, String paramPhoneNum, String paramEmail, String paramComment) {
+    public MyAptChild(String id, String paramTime, String paramDetail, String paramInitiator, String paramLocation, String paramPhoneNum, String paramEmail, String paramComment) {
+        this.id = id;
         time = paramTime;
         detail = paramDetail;
         initiator = paramInitiator;
