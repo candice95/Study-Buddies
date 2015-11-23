@@ -1,14 +1,21 @@
 package com.example.cardgame.cardgame.ui.adapter;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.RequiresPermission;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
+import com.example.cardgame.cardgame.ui.activity.UserpageActivity;
 import com.example.cardgame.cardgame.ui.component.AppointmentCardLayout;
 
 import java.util.List;
@@ -43,10 +50,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private static class CardViewHolder extends RecyclerView.ViewHolder{
         AppointmentCardLayout appointmentCardLayout;
-
         public CardViewHolder(View itemView) {
             super(itemView);
             appointmentCardLayout = (AppointmentCardLayout) itemView.findViewById(R.id.card_view);
+
         }
     }
 }

@@ -4,89 +4,156 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.ImageButton;
+import android.widget.Toast;
+import android.view.View.OnClickListener;
 
+import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
-import com.example.cardgame.cardgame.ui.adapter.MyRecyclerViewAdapter;
+import com.example.cardgame.cardgame.ui.adapter.AptExpandableAdapter;
+import com.example.cardgame.cardgame.ui.adapter.RecyclerViewAdapter;
+import com.example.cardgame.cardgame.ui.component.MyAptChild;
+import com.example.cardgame.cardgame.ui.component.MyAptParent;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Syuman on 10/26/15.
- */
 public class FirstFragment extends Fragment {
 
     private RecyclerView rv1;
-    private List<Appointment> appointments = new ArrayList<>();
+    private SwipeRefreshLayout swipeRefreshLayout1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first, container, false);
         rv1 = (RecyclerView) view.findViewById(R.id.rv1);
+        swipeRefreshLayout1 = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout1);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rv1.setLayoutManager(llm);
         Log.d("onCreateView", rv1 + "");
-        // hard code data
 
-        Appointment appointment = new Appointment();
-        appointment.title = "cse 110";
-        appointment.detail = "midterm review";
-        appointment.creator = "ariel chen";
-        appointment.date = "11.3";
-        appointment.location = "Geisel Room 619";
-        appointments.add(appointment);
+        getApts();
 
-        Appointment appointment2 = new Appointment();
-        appointment2.title = "cse 132A";
-        appointment2.detail = "midterm review";
-        appointment2.creator = "ariel chen";
-        appointment2.date = "11.4";
-        appointment2.location = "Geisel Room 716";
-        appointments.add(appointment2);
-
-        Appointment appointment3 = new Appointment();
-        appointment3.title = "cse 140L";
-        appointment3.detail = "midterm review";
-        appointment3.creator = "ariel chen";
-        appointment3.date = "11.5";
-        appointment3.location = "BML Room 218";
-        appointments.add(appointment3);
-
-        Appointment appointment4 = new Appointment();
-        appointment4.title = "cse 170";
-        appointment4.detail = "midterm review";
-        appointment4.creator = "feicao";
-        appointment4.date = "11.5";
-        appointment4.location = "BML Room 218";
-        appointments.add(appointment4);
-
-        Appointment appointment5 = new Appointment();
-        appointment5.title = "cse 170";
-        appointment5.detail = "midterm review";
-        appointment5.creator = "feicao";
-        appointment5.date = "11.5";
-        appointment5.location = "BML Room 218";
-        appointments.add(appointment4);
-
-        Appointment appointment6 = new Appointment();
-        appointment6.title = "cse 170";
-        appointment6.detail = "midterm review";
-        appointment6.creator = "feicao";
-        appointment6.date = "11.5";
-        appointment6.location = "BML Room 218";
-        appointments.add(appointment4);
-
-
-
-        Log.d("onCreateView", appointments + "");
-        MyRecyclerViewAdapter recyclerViewAdapter = new MyRecyclerViewAdapter(appointments);
-        rv1.setAdapter(recyclerViewAdapter);
+        swipeRefreshLayout1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getApts();
+            }
+        });
         return view;
+    }
+
+    @Override public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ((AptExpandableAdapter) rv1.getAdapter()).onSaveInstanceState(outState);
+    }
+
+    public void getApts() {
+        final List<ParentListItem> parentListItems = new ArrayList<>();
+        final ParseUser currentUser = ParseUser.getCurrentUser();
+        ParseQuery<ParseObject> createByMe = ParseQuery.getQuery("Appointment");
+        createByMe.whereEqualTo("creator", currentUser.getUsername());
+        ParseQuery<ParseObject> iJoin = currentUser.getRelation("joined").getQuery();
+        List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+        queries.add(createByMe);
+        queries.add(iJoin);
+        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+        mainQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    for (ParseObject parseObject : objects) {
+                            String title = parseObject.getString("title");
+                            String detail = parseObject.getString("detail");
+                            String creator = parseObject.getString("creator");
+                            String location = parseObject.getString("location");
+                            String phone = parseObject.getString("phone");
+                            String email = parseObject.getString("email");
+                            String month = parseObject.getString("month");
+                            String day = parseObject.getString("day");
+                            int dayInt = Integer.parseInt(day);
+                            String hour = parseObject.getString("hour");
+                            String minute = parseObject.getString("minute");
+                            String time = hour + ":" + minute;
+                            Calendar aptDate = Calendar.getInstance();
+                        if(parseObject.getString("month").equals("Jan")) {
+                            aptDate.set(2015, Calendar.JANUARY, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Feb")) {
+                            aptDate.set(2015, Calendar.FEBRUARY, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Mar")) {
+                            aptDate.set(2015, Calendar.MARCH, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Apr")) {
+                            aptDate.set(2015, Calendar.APRIL, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("May")) {
+                            aptDate.set(2015, Calendar.MAY, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Jun")) {
+                            aptDate.set(2015, Calendar.JUNE, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Jul")) {
+                            aptDate.set(2015, Calendar.JULY, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Aug")) {
+                            aptDate.set(2015, Calendar.AUGUST, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Sep")) {
+                            aptDate.set(2015, Calendar.SEPTEMBER, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Oct")) {
+                            aptDate.set(2015, Calendar.OCTOBER, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Nov")) {
+                            aptDate.set(2015, Calendar.NOVEMBER, dayInt);
+                        }
+                        else if(parseObject.getString("month").equals("Dec")) {
+                            aptDate.set(2015, Calendar.DECEMBER, dayInt);
+                        }
+                            Calendar now = Calendar.getInstance();
+                            long diffMillis = Math.abs(now.getTimeInMillis() - aptDate.getTimeInMillis());
+                            long differenceInDays = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
+                            MyAptParent appointment = new MyAptParent();
+                            appointment.title = title;
+                            appointment.daysLeft = "" + differenceInDays;
+                            if (now.getTimeInMillis() - aptDate.getTimeInMillis() > 0) {
+                                appointment.daysLeftText = "days passed since";
+                            } else {
+                                appointment.daysLeftText = "days left until";
+                            }
+                            appointment.date = month + " " + day;
+                            List<MyAptChild> childItemList = new ArrayList<>();
+                            MyAptChild myAptChild = new MyAptChild(time, detail, creator, location, phone, email, "finish your practise midterm");
+                            childItemList.add(myAptChild);
+                            appointment.setChildItemList(childItemList);
+                            parentListItems.add(appointment);
+                    }
+                    AptExpandableAdapter aptExpandableAdapter = new AptExpandableAdapter(getActivity(),parentListItems);
+                    rv1.setAdapter(aptExpandableAdapter);
+                }
+                swipeRefreshLayout1.setRefreshing(false);
+            }
+        });
     }
 
 }
