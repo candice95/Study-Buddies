@@ -23,12 +23,14 @@ import com.example.cardgame.cardgame.ui.adapter.AptExpandableAdapter;
 import com.example.cardgame.cardgame.ui.adapter.RecyclerViewAdapter;
 import com.example.cardgame.cardgame.ui.component.MyAptChild;
 import com.example.cardgame.cardgame.ui.component.MyAptParent;
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.w3c.dom.Text;
 
@@ -43,6 +45,8 @@ public class FirstFragment extends Fragment {
 
     private RecyclerView rv1;
     private SwipeRefreshLayout swipeRefreshLayout1;
+
+    private Events.JoinedEvent joinedEvent = new Events.JoinedEvent();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,12 +92,12 @@ public class FirstFragment extends Fragment {
     private void getApts() {
         final List<ParentListItem> parentListItems = new ArrayList<>();
         final ParseUser currentUser = ParseUser.getCurrentUser();
-        ParseRelation<ParseObject> relation = currentUser.getRelation("joined");
+        final ParseRelation<ParseObject> relation = currentUser.getRelation("joined");
         relation.getQuery().findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
-                    for (ParseObject parseObject : objects) {
+                    for (final ParseObject parseObject : objects) {
                         String id = parseObject.getObjectId();
                         String title = parseObject.getString("title");
                         String detail = parseObject.getString("detail");
@@ -152,15 +156,31 @@ public class FirstFragment extends Fragment {
                         appointment.daysLeft = "" + differenceInDays;
                         if (now.getTimeInMillis() - aptDate.getTimeInMillis() > 0) {
                             appointment.daysLeftText = "days passed since";
+                            // remove past appoint
+                            relation.remove(parseObject);
+                            currentUser.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    parseObject.deleteInBackground(new DeleteCallback() {
+                                        @Override
+                                        public void done(ParseException e) {
+                                            if (e == null) {
+                                                EventBus.getDefault().post(joinedEvent);
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+
                         } else {
                             appointment.daysLeftText = "days left until";
+                            appointment.date = month + " " + day;
+                            List<MyAptChild> childItemList = new ArrayList<>();
+                            MyAptChild myAptChild = new MyAptChild(id, time, detail, creator, location, phone, email, "finish your practise midterm");
+                            childItemList.add(myAptChild);
+                            appointment.setChildItemList(childItemList);
+                            parentListItems.add(appointment);
                         }
-                        appointment.date = month + " " + day;
-                        List<MyAptChild> childItemList = new ArrayList<>();
-                        MyAptChild myAptChild = new MyAptChild(id, time, detail, creator, location, phone, email, "finish your practise midterm");
-                        childItemList.add(myAptChild);
-                        appointment.setChildItemList(childItemList);
-                        parentListItems.add(appointment);
                     }
                     AptExpandableAdapter aptExpandableAdapter = new AptExpandableAdapter(getActivity(),parentListItems);
                     rv1.setAdapter(aptExpandableAdapter);
