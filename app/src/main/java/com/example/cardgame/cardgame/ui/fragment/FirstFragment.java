@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import com.bignerdranch.expandablerecyclerview.Model.ParentListItem;
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
+import com.example.cardgame.cardgame.helper.Events;
 import com.example.cardgame.cardgame.ui.adapter.AptExpandableAdapter;
 import com.example.cardgame.cardgame.ui.adapter.RecyclerViewAdapter;
 import com.example.cardgame.cardgame.ui.component.MyAptChild;
@@ -35,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import de.greenrobot.event.EventBus;
 
 public class FirstFragment extends Fragment {
 
@@ -61,39 +64,50 @@ public class FirstFragment extends Fragment {
         return view;
     }
 
-    @Override public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        ((AptExpandableAdapter) rv1.getAdapter()).onSaveInstanceState(outState);
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
     }
 
-    public void getApts() {
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    //    @Override public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        ((AptExpandableAdapter) rv1.getAdapter()).onSaveInstanceState(outState);
+//    }  // ???
+
+    public void onEvent(Events.RefreshEvent refreshEvent) {
+        getApts();
+    }
+
+    private void getApts() {
         final List<ParentListItem> parentListItems = new ArrayList<>();
         final ParseUser currentUser = ParseUser.getCurrentUser();
-        ParseQuery<ParseObject> createByMe = ParseQuery.getQuery("Appointment");
-        createByMe.whereEqualTo("creator", currentUser.getUsername());
-        ParseQuery<ParseObject> iJoin = currentUser.getRelation("joined").getQuery();
-        List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
-        queries.add(createByMe);
-        queries.add(iJoin);
-        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
-        mainQuery.findInBackground(new FindCallback<ParseObject>() {
+        ParseRelation<ParseObject> relation = currentUser.getRelation("joined");
+        relation.getQuery().findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null) {
                     for (ParseObject parseObject : objects) {
-                            String title = parseObject.getString("title");
-                            String detail = parseObject.getString("detail");
-                            String creator = parseObject.getString("creator");
-                            String location = parseObject.getString("location");
-                            String phone = parseObject.getString("phone");
-                            String email = parseObject.getString("email");
-                            String month = parseObject.getString("month");
-                            String day = parseObject.getString("day");
-                            int dayInt = Integer.parseInt(day);
-                            String hour = parseObject.getString("hour");
-                            String minute = parseObject.getString("minute");
-                            String time = hour + ":" + minute;
-                            Calendar aptDate = Calendar.getInstance();
+                        String id = parseObject.getObjectId();
+                        String title = parseObject.getString("title");
+                        String detail = parseObject.getString("detail");
+                        String creator = parseObject.getString("creator");
+                        String location = parseObject.getString("location");
+                        String phone = parseObject.getString("phone");
+                        String email = parseObject.getString("email");
+                        String month = parseObject.getString("month");
+                        String day = parseObject.getString("day");
+                        int dayInt = Integer.parseInt(day);
+                        String hour = parseObject.getString("hour");
+                        String minute = parseObject.getString("minute");
+                        String time = hour + ":" + minute;
+                        Calendar aptDate = Calendar.getInstance();
                         if(parseObject.getString("month").equals("Jan")) {
                             aptDate.set(2015, Calendar.JANUARY, dayInt);
                         }
@@ -130,23 +144,23 @@ public class FirstFragment extends Fragment {
                         else if(parseObject.getString("month").equals("Dec")) {
                             aptDate.set(2015, Calendar.DECEMBER, dayInt);
                         }
-                            Calendar now = Calendar.getInstance();
-                            long diffMillis = Math.abs(now.getTimeInMillis() - aptDate.getTimeInMillis());
-                            long differenceInDays = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
-                            MyAptParent appointment = new MyAptParent();
-                            appointment.title = title;
-                            appointment.daysLeft = "" + differenceInDays;
-                            if (now.getTimeInMillis() - aptDate.getTimeInMillis() > 0) {
-                                appointment.daysLeftText = "days passed since";
-                            } else {
-                                appointment.daysLeftText = "days left until";
-                            }
-                            appointment.date = month + " " + day;
-                            List<MyAptChild> childItemList = new ArrayList<>();
-                            MyAptChild myAptChild = new MyAptChild(time, detail, creator, location, phone, email, "finish your practise midterm");
-                            childItemList.add(myAptChild);
-                            appointment.setChildItemList(childItemList);
-                            parentListItems.add(appointment);
+                        Calendar now = Calendar.getInstance();
+                        long diffMillis = Math.abs(now.getTimeInMillis() - aptDate.getTimeInMillis());
+                        long differenceInDays = TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
+                        MyAptParent appointment = new MyAptParent();
+                        appointment.title = title;
+                        appointment.daysLeft = "" + differenceInDays;
+                        if (now.getTimeInMillis() - aptDate.getTimeInMillis() > 0) {
+                            appointment.daysLeftText = "days passed since";
+                        } else {
+                            appointment.daysLeftText = "days left until";
+                        }
+                        appointment.date = month + " " + day;
+                        List<MyAptChild> childItemList = new ArrayList<>();
+                        MyAptChild myAptChild = new MyAptChild(id, time, detail, creator, location, phone, email, "finish your practise midterm");
+                        childItemList.add(myAptChild);
+                        appointment.setChildItemList(childItemList);
+                        parentListItems.add(appointment);
                     }
                     AptExpandableAdapter aptExpandableAdapter = new AptExpandableAdapter(getActivity(),parentListItems);
                     rv1.setAdapter(aptExpandableAdapter);

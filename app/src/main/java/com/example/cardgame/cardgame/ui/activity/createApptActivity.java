@@ -6,13 +6,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cardgame.cardgame.R;
+import com.example.cardgame.cardgame.helper.Events;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import de.greenrobot.event.EventBus;
 
 public class createApptActivity extends AppCompatActivity {
 
@@ -20,6 +26,8 @@ public class createApptActivity extends AppCompatActivity {
     private MaterialEditText title, detail, creator, location, capacity, phone, email;
     private Spinner month, day, hour, minute;
     private Button submit;
+
+    private Events.JoinedEvent joinedEvent = new Events.JoinedEvent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +79,13 @@ public class createApptActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!hasEmpty()) {
                     submit.setEnabled(false);
-                    ParseObject parseObject = new ParseObject("Appointment");
+                    final ParseObject parseObject = new ParseObject("Appointment");
                     parseObject.put("title", getString(title));
                     parseObject.put("detail", getString(detail));
                     parseObject.put("creator", getString(creator));
                     parseObject.put("location", getString(location));
                     parseObject.put("capacity", getString(capacity));
-                    parseObject.put("seats", Integer.parseInt(getString(capacity))-1);
+                    parseObject.put("seats", Integer.parseInt(getString(capacity)));
                     parseObject.put("phone", getString(phone));
                     parseObject.put("email", getString(email));
                     parseObject.put("month", month.getSelectedItem().toString());
@@ -90,6 +98,27 @@ public class createApptActivity extends AppCompatActivity {
                             submit.setEnabled(true);
                             if (e == null) {
                                 showToast("Created Successfully");
+                                ParseUser user = ParseUser.getCurrentUser();
+                                ParseRelation<ParseObject> relation = user.getRelation("joined");
+                                relation.add(parseObject);
+                                user.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            parseObject.increment("seats", -1); // decrease available seats
+                                            parseObject.saveInBackground(new SaveCallback() {
+                                                @Override
+                                                public void done(ParseException e) {
+                                                    if (e == null) {
+                                                        EventBus.getDefault().post(joinedEvent);
+                                                    }
+                                                }
+                                            });
+                                        } else {
+                                            showToast("error occurs, retry");
+                                        }
+                                    }
+                                });
                                 finish();
                             } else {
                                 showToast("Created fail");
