@@ -50,6 +50,7 @@ public class AptExpandableAdapter extends ExpandableRecyclerAdapter<MyAptParentV
     @Override
     public void onBindChildViewHolder(MyAptChildViewHolder cHolder, int i, Object cList) {
         MyAptChild aptChild = (MyAptChild)cList;
+        cHolder.id = aptChild.id;
         cHolder.myAptTime.setText("Time: " + aptChild.getTime());
         cHolder.myAptDetail.setText("Detail: " + aptChild.getDetail());
         cHolder.myAptInitiator.setText("Initiator: " + aptChild.getInitiator());

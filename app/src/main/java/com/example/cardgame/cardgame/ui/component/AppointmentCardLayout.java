@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
+import com.example.cardgame.cardgame.helper.Events;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -23,6 +24,8 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by chenshiyu on 10/30/15.
@@ -35,6 +38,9 @@ public class AppointmentCardLayout extends CardView {
     private int descriptionViewMinHeight;
     private int descriptionViewFullHeight;
     boolean isCalled = false;
+
+    private Events.RefreshEvent refreshEvent = new Events.RefreshEvent();
+    private Events.JoinedEvent joinedEvent = new Events.JoinedEvent();
 
     public AppointmentCardLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -168,6 +174,8 @@ public class AppointmentCardLayout extends CardView {
                                                         public void done(ParseException e) {
                                                             if (e == null) {
                                                                 ((TextView) findViewById(R.id.expand_text_seats)).setText("Seats available: "+ (appointment.seats - 1));
+                                                                EventBus.getDefault().post(refreshEvent);
+                                                                EventBus.getDefault().post(joinedEvent);
                                                                 showToast("joined successfully");
                                                             } else {
                                                                 showToast("joined fail");

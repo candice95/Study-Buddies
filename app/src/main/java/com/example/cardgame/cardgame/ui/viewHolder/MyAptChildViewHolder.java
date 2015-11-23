@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
 import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.helper.Appointment;
+import com.example.cardgame.cardgame.helper.Events;
 import com.example.cardgame.cardgame.ui.adapter.AptExpandableAdapter;
 import com.example.cardgame.cardgame.ui.fragment.FirstFragment;
 import com.example.cardgame.cardgame.ui.component.MyAptChild;
@@ -31,11 +32,14 @@ import com.parse.SaveCallback;
 
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by feicao on 11/6/15.
  */
 public class MyAptChildViewHolder extends ChildViewHolder {
 
+    public String id;
     public TextView myAptTime;
     public TextView myAptDetail;
     public TextView myAptInitiator;
@@ -47,6 +51,10 @@ public class MyAptChildViewHolder extends ChildViewHolder {
     public ImageButton imageButton;
     public AlertDialog.Builder builder;
     public Context context;
+
+    private Events.RefreshEvent refreshEvent = new Events.RefreshEvent();
+    private Events.JoinedEvent joinedEvent = new Events.JoinedEvent();
+
 
     public MyAptChildViewHolder(View itemView) {
         super(itemView);
@@ -94,45 +102,49 @@ public class MyAptChildViewHolder extends ChildViewHolder {
     }
 
     private void removeAppointment() {
-//        final ParseUser user = ParseUser.getCurrentUser();
-//        final ParseRelation<ParseObject> relation = user.getRelation("joined");
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointment");
-//        query.getInBackground(, new GetCallback<ParseObject>() {
-//            @Override
-//            public void done(final ParseObject object, ParseException e) {
-//                if (e == null) {
-//                    relation.getQuery().findInBackground(new FindCallback<ParseObject>() {
-//                        @Override
-//                        public void done(List<ParseObject> objects, ParseException e) {
-//                            if (e == null) {
-//                                if (objects.contains(object)) {
-//                                    relation.remove(object);
-//                                    user.saveInBackground(new SaveCallback() {
-//                                        @Override
-//                                        public void done(ParseException e) {
-//                                            if (e == null) {
-//                                                object.increment("seats", 1); // decrease available seats
-//                                                object.saveInBackground(new SaveCallback() {
-//                                                    @Override
-//                                                    public void done(ParseException e) {
-//
-//                                                    }
-//                                                });
-//                                            }
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
+        final ParseUser user = ParseUser.getCurrentUser();
+        final ParseRelation<ParseObject> relation = user.getRelation("joined");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Appointment");
+        query.getInBackground(id, new GetCallback<ParseObject>() {
+            @Override
+            public void done(final ParseObject object, ParseException e) {
+                if (e == null) {
+                    relation.getQuery().findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> objects, ParseException e) {
+                            if (e == null) {
+                                if (objects.contains(object)) {
+                                    relation.remove(object);
+                                    user.saveInBackground(new SaveCallback() {
+                                        @Override
+                                        public void done(ParseException e) {
+                                            if (e == null) {
+                                                object.increment("seats", 1); // increase available seats
+                                                object.saveInBackground(new SaveCallback() {
+                                                    @Override
+                                                    public void done(ParseException e) {
+                                                        if (e == null) {
+                                                            EventBus.getDefault().post(refreshEvent);
+                                                            EventBus.getDefault().post(joinedEvent);
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private void showToast(String string) {
         Toast.makeText(itemView.getContext(), string, Toast.LENGTH_LONG).show();
     }
+
 }
 
 
