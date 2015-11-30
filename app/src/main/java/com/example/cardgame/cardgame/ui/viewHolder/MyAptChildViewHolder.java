@@ -31,7 +31,6 @@ public class MyAptChildViewHolder extends ChildViewHolder {
 
     public String id;
     public TextView myAptTime;
-    public TextView myAptDetail;
     public TextView myAptInitiator;
     public TextView myAptLocation;
     public TextView myAptPhoneNum;
@@ -50,7 +49,6 @@ public class MyAptChildViewHolder extends ChildViewHolder {
         super(itemView);
 
         myAptTime = (TextView) itemView.findViewById(R.id.time);
-        myAptDetail = (TextView) itemView.findViewById(R.id.detail);
         myAptInitiator = (TextView) itemView.findViewById(R.id.initiator);
         myAptLocation = (TextView) itemView.findViewById(R.id.location);
         myAptPhoneNum = (TextView) itemView.findViewById(R.id.phoneNum);

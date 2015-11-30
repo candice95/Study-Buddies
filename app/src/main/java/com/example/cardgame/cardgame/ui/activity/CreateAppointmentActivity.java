@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cardgame.cardgame.R;
+import com.example.cardgame.cardgame.helper.DateUtil;
 import com.example.cardgame.cardgame.helper.Events;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -80,6 +81,11 @@ public class CreateAppointmentActivity extends AppCompatActivity {
                 if (!hasEmpty()) {
                     submit.setEnabled(false);
                     final ParseObject parseObject = new ParseObject("Appointment");
+                    if (DateUtil.getDiffInDays(month.getSelectedItem().toString(), day.getSelectedItem().toString()) < 0) {
+                        showToast("Please enter a valid date");
+                        submit.setEnabled(true);
+                        return;
+                    }
                     parseObject.put("title", getString(title));
                     parseObject.put("detail", getString(detail));
                     parseObject.put("creator", getString(creator));
@@ -125,6 +131,8 @@ public class CreateAppointmentActivity extends AppCompatActivity {
                             }
                         }
                     });
+                } else {
+                    showToast("Please fill all the fields");
                 }
             }
         });
