@@ -4,15 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,21 +16,23 @@ import com.example.cardgame.cardgame.R;
 import com.example.cardgame.cardgame.ui.adapter.StatePagerAdapter;
 import com.parse.ParseUser;
 
+
 /**
  * Created by chenshiyu on 10/21/15.
  */
-public class UserpageActivity extends AppCompatActivity {
+public class MainPageActivity extends AppCompatActivity {
 
     //Main user page
 
     private ImageView logout;
-    private ParseUser currentUser;
+    private TextView title;
 
+    private ParseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tabbar_container);
+        setContentView(R.layout.activity_main_page);
 
         setupUi();
     }
@@ -47,6 +44,8 @@ public class UserpageActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.view_pager_tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        title = (TextView) findViewById(R.id.title);
+
         currentUser = ParseUser.getCurrentUser();
 
         logout = (ImageView) findViewById(R.id.logout);
@@ -54,7 +53,7 @@ public class UserpageActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(UserpageActivity.this)
+                new AlertDialog.Builder(MainPageActivity.this)
                         .setMessage("Are you sure you want to log out?")
                         .setPositiveButton("Log out", new DialogInterface.OnClickListener() {
                             @Override
@@ -79,14 +78,35 @@ public class UserpageActivity extends AppCompatActivity {
         findViewById(R.id.create_appt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserpageActivity.this, createApptActivity.class);
+                Intent intent = new Intent(MainPageActivity.this, CreateAppointmentActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    title.setText("Reserved Events");
+                } else if (position == 1){
+                    title.setText("Existing Events");
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }
 
     private void navigateToMainPage() {
-        Intent intent = new Intent(UserpageActivity.this, OnBoardingActivity.class);
+        Intent intent = new Intent(MainPageActivity.this, OnBoardingActivity.class);
         finish();
         startActivity(intent);
     }

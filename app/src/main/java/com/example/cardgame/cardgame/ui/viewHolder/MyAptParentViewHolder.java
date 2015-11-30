@@ -16,6 +16,7 @@ public class MyAptParentViewHolder extends ParentViewHolder {
     public TextView myAptViewDaysLeft;
     public TextView myAptViewDaysLeftText;
     public TextView myAptViewLoc;
+    public TextView myAptViewDetail;
 
     public MyAptParentViewHolder(View itemView) {
         super(itemView);
@@ -25,6 +26,7 @@ public class MyAptParentViewHolder extends ParentViewHolder {
         myAptViewDaysLeftText = (TextView) itemView.findViewById(R.id.daysLeftText);
         myAptViewDate = (TextView)itemView.findViewById(R.id.date);
         myAptViewLoc = (TextView)itemView.findViewById(R.id.location);
+        myAptViewDetail = (TextView) itemView.findViewById(R.id.detail);
 
     }
 }
