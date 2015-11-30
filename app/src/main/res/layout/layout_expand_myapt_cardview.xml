@@ -18,18 +18,8 @@
         android:layout_marginRight="10dp"
         android:layout_width = "wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/cancelapt"
+        android:background="@mipmap/cancelapt"
         />
-
-    <TextView
-        android:id="@+id/detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_below="@id/time"
-        android:padding="8dp"
-        android:background="@color/gray_main_bg" />
 
     <TextView
         android:id="@+id/initiator"

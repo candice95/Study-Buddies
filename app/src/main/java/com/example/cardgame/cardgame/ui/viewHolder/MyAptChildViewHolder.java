@@ -3,26 +3,16 @@ package com.example.cardgame.cardgame.ui.viewHolder;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.app.AlertDialog.Builder;
 import android.widget.Toast;
 
 import com.bignerdranch.expandablerecyclerview.ViewHolder.ChildViewHolder;
 import com.example.cardgame.cardgame.R;
-import com.example.cardgame.cardgame.helper.Appointment;
 import com.example.cardgame.cardgame.helper.Events;
-import com.example.cardgame.cardgame.ui.adapter.AptExpandableAdapter;
-import com.example.cardgame.cardgame.ui.fragment.FirstFragment;
-import com.example.cardgame.cardgame.ui.component.MyAptChild;
-import com.example.cardgame.cardgame.ui.component.MyAptParent;
-import com.example.cardgame.cardgame.ui.component.AppointmentCardLayout;
-import com.example.cardgame.cardgame.ui.fragment.SecondFragment;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -41,7 +31,6 @@ public class MyAptChildViewHolder extends ChildViewHolder {
 
     public String id;
     public TextView myAptTime;
-    public TextView myAptDetail;
     public TextView myAptInitiator;
     public TextView myAptLocation;
     public TextView myAptPhoneNum;
@@ -60,7 +49,6 @@ public class MyAptChildViewHolder extends ChildViewHolder {
         super(itemView);
 
         myAptTime = (TextView) itemView.findViewById(R.id.time);
-        myAptDetail = (TextView) itemView.findViewById(R.id.detail);
         myAptInitiator = (TextView) itemView.findViewById(R.id.initiator);
         myAptLocation = (TextView) itemView.findViewById(R.id.location);
         myAptPhoneNum = (TextView) itemView.findViewById(R.id.phoneNum);

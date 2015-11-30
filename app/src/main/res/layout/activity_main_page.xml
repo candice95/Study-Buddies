@@ -32,8 +32,17 @@
     <RelativeLayout
         android:id="@+id/upper_bar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#004C99">
+        android:layout_height="110dp"
+        >
+
+        <ImageView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/geisel_header"
+            android:background="@drawable/gradient_image"
+            />
 
         <ImageView
             android:id="@+id/logout"
@@ -46,13 +55,29 @@
             />
 
         <TextView
+            android:id="@+id/app_name"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Study Buddies"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
             android:textSize="20sp"
+            android:typeface="sans"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/app_name"
+            android:layout_centerHorizontal="true"
+            android:text="Reserved Events"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:typeface="sans"
+            android:textStyle="bold"
             />
 
         <ImageView
@@ -64,8 +89,6 @@
             android:layout_alignParentRight="true"
             android:padding="10dp"
             />
-
-
 
     </RelativeLayout>
 

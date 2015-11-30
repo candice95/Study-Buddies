@@ -45,6 +45,7 @@ public class AptExpandableAdapter extends ExpandableRecyclerAdapter<MyAptParentV
         pHolder.myAptViewDaysLeft.setText(aptParent.getDaysLeft());
         pHolder.myAptViewDaysLeftText.setText(aptParent.getDaysLeftText());
         pHolder.myAptViewDate.setText(aptParent.getDate());
+        pHolder.myAptViewDetail.setText(aptParent.getDetail());
     }
 
     @Override
@@ -52,7 +53,6 @@ public class AptExpandableAdapter extends ExpandableRecyclerAdapter<MyAptParentV
         MyAptChild aptChild = (MyAptChild)cList;
         cHolder.id = aptChild.id;
         cHolder.myAptTime.setText("Time: " + aptChild.getTime());
-        cHolder.myAptDetail.setText("Detail: " + aptChild.getDetail());
         cHolder.myAptInitiator.setText("Initiator: " + aptChild.getInitiator());
         cHolder.myAptLocation.setText("Location: " + aptChild.getLocation());
         cHolder.myAptPhoneNum.setText("PhoneNumber: " + aptChild.getPhoneNum());
