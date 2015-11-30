@@ -20,7 +20,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import de.greenrobot.event.EventBus;
 
-public class createApptActivity extends AppCompatActivity {
+public class CreateAppointmentActivity extends AppCompatActivity {
 
     //Creating a new appointment
     private MaterialEditText title, detail, creator, location, capacity, phone, email;
