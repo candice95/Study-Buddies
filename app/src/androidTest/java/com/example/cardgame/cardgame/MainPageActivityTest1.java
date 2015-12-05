@@ -1,33 +1,41 @@
 package com.example.cardgame.cardgame;
 
 import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.example.cardgame.cardgame.ui.activity.MainPageActivity;
 
-import junit.framework.TestCase;
-
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import static android.support.test.espresso.Espresso.closeSoftKeyboard;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withHint;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.not;
+
+
+@RunWith(AndroidJUnit4.class)
 
 /**
  * Created by hacker on 12/4/15.
  */
-public class MainPageActivityTest1 extends TestCase {
+public class MainPageActivityTest1 {
     @Rule
     public ActivityTestRule<MainPageActivity> activityRule = new ActivityTestRule(MainPageActivity.class);
     @Test
     //Given the user has logged in and they are at the appointment page
+    //attention: because we are given user has loggin in, you need to login inorder to test
+    //username: tester1  password: 123456
     public void initialState(){
         onView(withId(R.id.title)).check(matches(withText("Reserved Events")));
         onView(withId(R.id.app_name)).check(matches(withText("Study Buddies")));
